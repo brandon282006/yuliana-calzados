@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Nueva venta web | Yuliana Calzados</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+          rel="stylesheet">
+</head>
+
+<body class="bg-light">
+
+<div class="container py-5">
+
+    <div class="mb-4">
+        <h1 class="h3">Registrar venta web</h1>
+        <p class="text-secondary">
+            Preparación de la vista para gestionar pedidos en línea.
+        </p>
+    </div>
+
+    <div class="card border-0 shadow-sm">
+        <div class="card-body p-4">
+
+            <div class="alert alert-info">
+                <i class="bi bi-info-circle"></i>
+                La venta web deberá generarse desde el carrito durante
+                el checkout, conservando sus productos y cantidades.
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Carrito</label>
+                <input type="text" class="form-control"
+                       value="Se vinculará con el carrito del cliente"
+                       disabled>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Dirección de envío</label>
+                <input type="text" class="form-control"
+                       placeholder="Se solicitará durante el checkout"
+                       disabled>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Método de pago</label>
+                <select class="form-select" disabled>
+                    <option>Seleccionar método de pago</option>
+                    <option>Tarjeta</option>
+                    <option>Yape / Plin</option>
+                    <option>Transferencia</option>
+                </select>
+            </div>
+
+            <div class="alert alert-warning">
+                Esta pantalla todavía no registra ventas. Primero
+                conectaremos el checkout con la base de datos.
+            </div>
+
+            <a th:href="@{/ventas-web}"
+               class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left"></i>
+                Volver al listado
+            </a>
+
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Clientes - Yuliana Calzados</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+</head>
+<body class="container py-5">
+
+    <h1 class="mb-4">Gestión de clientes</h1>
+
+    <a th:href="@{/clientes/nuevo}" class="btn btn-dark mb-3">
+        Nuevo cliente
+    </a>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Correo</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Teléfono</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="c : ${clientes}">
+                    <td th:text="${c.idCliente}"></td>
+                    <td th:text="${c.usuario.correoUsu}"></td>
+                    <td th:text="${c.nombreCli}"></td>
+                    <td th:text="${c.apellidoCli}"></td>
+                    <td th:text="${c.telefonoCli}"></td>
+                    <td>
+                        <a th:href="@{/clientes/editar/{id}(id=${c.idCliente})}"
+                           class="btn btn-warning btn-sm">Editar</a>
+
+                        <form th:action="@{/clientes/eliminar/{id}(id=${c.idCliente})}"
+                              method="post" class="d-inline"
+                              onsubmit="return confirm('¿Eliminar este perfil?')">
+                            <button type="submit" class="btn btn-danger btn-sm">
+                                Eliminar
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(clientes)}">
+                    <td colspan="6" class="text-center">
+                        No hay clientes registrados.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <a th:href="@{/usuarios}" class="btn btn-outline-secondary">
+        Volver a usuarios
+    </a>
+
+</body>
+</html>

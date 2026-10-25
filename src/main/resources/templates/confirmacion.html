@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>¡Gracias por tu compra! | Yuliana Calzados</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <nav th:replace="fragmentos/navbar :: nbar"></nav>
+  <!---->
+
+  <!-- Confirmación Horizontal -->
+  <main class="container my-5">
+
+    <!-- Banner Superior -->
+    <div class="card shadow-sm border-0 mb-4 p-4">
+      <div class="d-flex align-items-center flex-wrap">
+        <i class="bi bi-check-circle-fill text-success fs-1 me-3"></i>
+        <div>
+          <h2 class="fw-bold mb-1">¡Gracias por tu compra!</h2>
+          <p class="text-muted mb-0">Hemos recibido tu pedido correctamente. A continuación puedes revisar el detalle de tu compra.</p>
+        </div>
+        <div class="ms-auto text-center mt-3 mt-md-0 flex-shrink-1">
+          <span class="badge bg-success fs-6 fw-normal px-3 py-2 mb-1">Pago Confirmado</span>
+          <small class="d-block text-muted">Orden: <strong id="numeroPedido">---</strong></small>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-4">
+
+      <!-- Lado izquierdo: Lista de Productos Comprados -->
+      <div class="col-lg-7 col-xl-8">
+        <div class="card shadow-sm border-0 h-100 p-4">
+          <h5 class="fw-bold mb-3 border-bottom pb-2"><i class="bi bi-bag-check me-2"></i>Productos Comprados</h5>
+
+          <div id="productosConfirmacion"></div>
+        </div>
+      </div>
+
+      <!-- Lado derecho: Resumen -->
+      <div class="col-lg-5 col-xl-4">
+        <div class="card shadow-sm border-0 p-4">
+          <h5 class="fw-bold mb-3 border-bottom pb-2">Resumen y Datos</h5>
+
+          <!-- Resumen de totales a pagar -->
+          <ul class="list-group list-group-flush mb-3">
+            <li class="list-group-item d-flex justify-content-between align-items-center bg-transparent px-0">
+              Subtotal
+              <span id="subtotalConfirmacion">S/ 0.00</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center bg-transparent px-0">
+              Envío a domicilio
+              <span id="envioConfirmacion">S/ 0.00</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center bg-transparent px-0 fw-bold fs-5 border-top pt-3">
+              Total Pagado
+              <span id="totalConfirmacion" class="precio-actual">S/ 0.00</span>
+            </li>
+          </ul>
+
+          <!-- Datos de Entrega y Pago -->
+          <div class="bg-light p-3 rounded mb-4">
+            <h6 class="fw-bold small mb-2"><i class="bi bi-geo-alt me-1"></i> Dirección de Envío</h6>
+            <p id="datosCliente" class="mb-1 small text-muted"></p>
+            <p id="direccionEntrega" class="mb-3 small text-muted"></p>
+
+            <h6 class="fw-bold small mb-2"><i class="bi bi-credit-card me-1"></i> Método de Pago</h6>
+            <p id="metodoPagoConfirmacion" class="mb-0 small text-muted"></p>
+          </div>
+
+          <!-- Botones -->
+          <div class="d-grid gap-2">
+            <a th:href="@{/coleccion}" class="btn btn-dark btn-lg fs-6">Seguir comprando</a>
+            <a th:href="@{/index}" class="btn btn-secondary btn-lg fs-6 text-center">Volver al Inicio</a>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Modal Iniciar Sesión -->
+  <div th:replace="fragmentos/modal-login :: modal-login"></div>
+  <!---->
+  
+  <!-- Offcanvas Carrito -->
+  <div th:replace="fragmentos/offcanvas-carrito :: offcanvas-carrito"></div>
+  <!---->
+
+  <!-- Footer -->
+  <div th:replace="fragmentos/footer :: footer"></div>
+  <!---->
+  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+
+  <script th:src="@{/js/carrito.js}"></script>
+</body>
+
+</html>

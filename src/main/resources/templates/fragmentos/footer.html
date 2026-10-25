@@ -1,0 +1,62 @@
+<div th:fragment="footer" class="footer container-fluid text-white mt-5">
+    <div class="container">
+        <footer class="row row-cols-1 row-cols-sm-2 row-cols-md-5 py-5 border-top border-secondary">
+            <div class="col mb-3">
+                <a th:href="@{/index}" class="d-flex align-items-center mb-3 text-white text-decoration-none fs-4 fw-bold">
+                    Yuliana Calzados
+                </a>
+                <p class="text-secondary small">© 2026 Calzado Femenino.</p>
+            </div>
+
+            <div class="col mb-3">
+                <div class="mb-5 ">
+                    <label class="text-white fw-bold mb-3">Ubicación de referencia</label>
+                    <div class="mapaWeb">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d31600.26034679878!2d-79.076072!3d-8.0981636!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x91ad3df18cf285af%3A0xd593c738492b03b0!2sUniversidad%20Tecnol%C3%B3gica%20del%20Per%C3%BA%20Sede%20Trujillo!5e0!3m2!1ses!2spe!4v1787854599717!5m2!1ses!2spe"
+                            style="border:0;" allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col mb-3">
+                <h5 class="text-white fw-bold mb-3">Colección</h5>
+                <ul class="nav flex-column">
+                    <li class="nav-item mb-2"><a th:href="@{/coleccion}" class="nav-link p-0 text-secondary">Tacones</a></li>
+                    <li class="nav-item mb-2"><a th:href="@{/coleccion}" class="nav-link p-0 text-secondary">Botines de Cuero</a></li>
+                    <li class="nav-item mb-2"><a th:href="@{/coleccion}" class="nav-link p-0 text-secondary">Sandalias</a></li>
+                    <li class="nav-item mb-2"><a th:href="@{/coleccion}" class="nav-link p-0 text-secondary">Sneakers Urbanas</a></li>
+                    <li class="nav-item mb-2"><a th:href="@{/coleccion}" class="nav-link p-0 text-secondary">Mocasines</a></li>
+                </ul>
+            </div>
+
+            <div class="col mb-3">
+                <h5 class="text-white fw-bold mb-3">Ayuda</h5>
+                <ul class="nav flex-column">
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-secondary">Guía de Tallas</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-secondary">Preguntas Frecuentes</a>
+                    </li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-secondary">Envíos a Nivel
+                            Nacional</a></li>
+                </ul>
+            </div>
+
+            <div class="col mb-3">
+                <h5 class="text-white fw-bold mb-3">Contacto</h5>
+                <ul class="nav flex-column">
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-secondary">WhatsApp: <br>960 395 394
+                        </a></li>
+                    <li class="nav-item mb-2"><a href="#"
+                            class="nav-link p-0 text-secondary">yulianacalzados<br>@gmail.com</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-secondary">Horario: <br>L-S
+                            9am-7pm</a></li>
+                </ul>
+            </div>
+
+
+
+        </footer>
+    </div>
+</div>

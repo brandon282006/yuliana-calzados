@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Formulario de producto | Yuliana Calzados</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container py-5" style="max-width: 760px;">
+
+    <div class="mb-4">
+        <a th:href="@{/productos}"
+           class="link-secondary text-decoration-none">
+            ← Volver a productos
+        </a>
+
+        <h1 class="h3 mt-3"
+            th:text="${producto.idProducto == null}
+            ? 'Registrar producto' : 'Editar producto'">
+        </h1>
+
+        <p class="text-secondary">
+            Completa los datos del calzado.
+        </p>
+    </div>
+
+    <div class="card border-0 shadow-sm">
+        <div class="card-body p-4">
+
+            <form th:action="@{/productos/guardar}"
+                  th:object="${producto}"
+                  method="post">
+
+                <input type="hidden" th:field="*{idProducto}">
+
+                <div class="mb-3">
+                    <label for="modeloProd" class="form-label">
+                        Modelo del producto
+                    </label>
+
+                    <input type="text"
+                           id="modeloProd"
+                           th:field="*{modeloProd}"
+                           class="form-control"
+                           placeholder="Ej. Tacón elegante"
+                           maxlength="50"
+                           required>
+
+                    <div class="text-danger small mt-1"
+                         th:errors="*{modeloProd}">
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="descripcionProd" class="form-label">
+                        Descripción
+                    </label>
+
+                    <textarea id="descripcionProd"
+                              th:field="*{descripcionProd}"
+                              class="form-control"
+                              rows="3"
+                              maxlength="500"
+                              placeholder="Describe el producto...">
+                    </textarea>
+
+                    <div class="text-danger small mt-1"
+                         th:errors="*{descripcionProd}">
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="precioProd" class="form-label">
+                        Precio (S/)
+                    </label>
+
+                    <input type="number"
+                           id="precioProd"
+                           th:field="*{precioProd}"
+                           class="form-control"
+                           min="0.01"
+                           step="0.01"
+                           placeholder="0.00"
+                           required>
+
+                    <div class="text-danger small mt-1"
+                         th:errors="*{precioProd}">
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="categoria" class="form-label">
+                        Categoría
+                    </label>
+
+                    <select id="categoria"
+                            th:field="*{categoria.idCategoria}"
+                            class="form-select"
+                            required>
+
+                        <option value="">Selecciona una categoría</option>
+
+                        <option th:each="cat : ${categorias}"
+                                th:value="${cat.idCategoria}"
+                                th:text="${cat.nombreCat}">
+                        </option>
+                    </select>
+
+                    <div class="text-danger small mt-1"
+                         th:errors="*{categoria}">
+                    </div>
+
+                    <div th:if="${#lists.isEmpty(categorias)}"
+                         class="form-text text-danger">
+                        Primero debes registrar una categoría.
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label for="estadoProd" class="form-label">
+                        Estado
+                    </label>
+
+                    <select id="estadoProd"
+                            th:field="*{estadoProd}"
+                            class="form-select"
+                            required>
+
+                        <option value="Activo">Activo</option>
+                        <option value="Descontinuado">Descontinuado</option>
+                    </select>
+                </div>
+
+                <div class="d-flex flex-wrap gap-2">
+                    <button type="submit" class="btn btn-dark">
+                        Guardar producto
+                    </button>
+
+                    <a th:href="@{/productos}"
+                       class="btn btn-outline-secondary">
+                        Cancelar
+                    </a>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

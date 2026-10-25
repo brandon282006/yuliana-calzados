@@ -1,0 +1,36 @@
+<div th:fragment="modal-login" class="modal fade" id="modalLogin" tabindex="-1" aria-labelledby="modalLoginLabel" aria-hidden="true"
+    data-bs-backdrop="static" data-bs-keyboard="false">
+
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Header con botón cerrar -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalLoginLabel">Iniciar sesión</h5>
+                <!-- Botón cerrar con atributos correctos -->
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+
+            <!-- Body -->
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="correo" class="form-label">Correo electrónico</label>
+                        <input type="email" class="form-control" id="correo" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="clave" class="form-label">Contraseña</label>
+                        <input type="password" class="form-control" id="clave" required>
+                    </div>
+                    <button type="submit" class="btn btn-secondary">Entrar</button>
+                </form>
+            </div>
+
+            <!-- Footer con botón cerrar -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+
+        </div>
+    </div>
+</div>

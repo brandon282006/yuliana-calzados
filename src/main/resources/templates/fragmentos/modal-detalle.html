@@ -1,0 +1,68 @@
+<div th:fragment="modal-detalle" class="modal fade" id="modalDetalle" tabindex="-1" aria-labelledby="modalDetalleLabel"
+    aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalDetalleLabel">
+                    Detalle del producto
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+
+            <div class="modal-body">
+
+                <p>
+                    <strong>Material:</strong>
+                    Fabricación nacional con materiales de alta durabilidad
+                    y plantilla confort.
+                </p>
+
+                <!-- Selección de talla -->
+                <label for="selectTalla" class="form-label">
+                    Selecciona tu talla:
+                </label>
+                <select class="form-select mb-3" id="selectTalla" required>
+                    <option value="35">35</option>
+                    <option value="36">36</option>
+                    <option value="37" selected>37</option>
+                    <option value="38">38</option>
+                    <option value="39">39</option>
+                </select>
+
+                <!-- NUEVO: Selección de color -->
+                <label for="selectColor" class="form-label">
+                    Selecciona el color:
+                </label>
+                <select class="form-select mb-3" id="selectColor" required>
+                    <option value="" selected disabled>
+                        Elige un color
+                    </option>
+                    <option value="Beige">Beige</option>
+                    <option value="Negro">Negro</option>
+                    <option value="Rojo">Rojo</option>
+                    <option value="Marrón">Marrón</option>
+                </select>
+
+                <p class="text-success fw-bold">
+                    ✓ Consulta la disponibilidad de tu talla y color.
+                </p>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    Cerrar
+                </button>
+
+                <button type="button" class="btn btn-dark" id="btnAgregarCarrito">
+                    Añadir al Carrito
+                </button>
+
+                <small id="mensajeCarrito" class="text-success ms-2"></small>
+            </div>
+
+        </div>
+    </div>
+</div>

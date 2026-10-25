@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Detalle de venta web | Yuliana Calzados</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+
+<body class="bg-light">
+
+    <div class="container py-5">
+
+        <h1 class="h3 mb-1">Detalle de venta web</h1>
+        <p class="text-secondary mb-4">
+            Información del pedido seleccionado.
+        </p>
+
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-dark text-white py-3">
+                Venta web N.º
+                <span th:text="${ventaWeb.idVentaWeb}"></span>
+            </div>
+
+            <div class="card-body p-4">
+
+                <div class="row g-4">
+
+                    <div class="col-md-6">
+                        <label class="form-label text-secondary">Carrito asociado</label>
+                        <p class="fw-semibold" th:text="${ventaWeb.carrito.idCarrito}"></p>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label text-secondary">Fecha</label>
+                        <p class="fw-semibold" th:text="${ventaWeb.fechaVentWeb != null
+                       ? #temporals.format(ventaWeb.fechaVentWeb, 'dd/MM/yyyy HH:mm')
+                       : 'Sin fecha'}"></p>
+                    </div>
+
+                    <div class="col-12">
+                        <label class="form-label text-secondary">Dirección de envío</label>
+                        <p class="fw-semibold" th:text="${ventaWeb.direccionEnvioWeb}"></p>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label text-secondary">Método de pago</label>
+                        <p class="fw-semibold" th:text="${ventaWeb.metodoPagoWeb}"></p>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label text-secondary">Estado del pago</label>
+                        <p>
+                            <span class="badge text-bg-info" th:text="${ventaWeb.estadoPagoWeb}"></span>
+                        </p>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label text-secondary">Estado de la venta</label>
+                        <p>
+                            <span class="badge text-bg-secondary" th:text="${ventaWeb.estadoVentWeb}"></span>
+                        </p>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label text-secondary">Total</label>
+                        <p class="fs-4 fw-bold"
+                            th:text="${'S/ ' + #numbers.formatDecimal(ventaWeb.totalVentWeb, 1, 2)}"></p>
+                    </div>
+
+                </div>
+
+                <div class="alert alert-light border mt-3">
+                    <i class="bi bi-info-circle"></i>
+                    Los productos del pedido se mostrarán cuando conectemos
+                    los detalles de ventas web.
+                </div>
+
+                <a th:href="@{/detalles-ventas-web/{id}(id=${ventaWeb.idVentaWeb})}" class="btn btn-dark mb-3">
+                    <i class="bi bi-list-ul"></i>
+                    Ver productos del pedido
+                </a>
+
+                <a th:href="@{/ventas-web}" class="btn btn-outline-secondary">
+                    <i class="bi bi-arrow-left"></i>
+                    Volver al listado
+                </a>
+
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

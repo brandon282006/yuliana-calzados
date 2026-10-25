@@ -1,0 +1,310 @@
+:root {
+    --negro: #1A1A1A;
+    --cafe-oscuro: #1d1714;
+    --cafe: #8B6B4F;
+    --dorado: #C9A86A;
+    --marfil: #FAF7F2;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--marfil);
+    color: var(--negro);
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+.alert{
+    background-color: #e7dbd0;
+}
+
+#ofertas,
+#contacto {
+    scroll-margin-top: 90px;
+}
+
+img{
+    width: 150px;
+    height: auto;
+}
+
+.navbar {
+    background-color: #FAF7F2;
+    padding: 0px 30px;
+}
+
+.btn{
+    background-color: #3B2F2A;
+}
+.btn:hover{
+    background-color: #8B6B4F;
+}
+
+.navbar .nav-link {
+    color: black;
+    margin: 0 8px;
+    transition: 0.3s;
+    text-decoration: none;
+}
+
+.navbar .nav-link:hover {
+    color: var(--cafe);
+}
+
+i {
+    font-size: 23px;
+    padding: 10px;
+}
+
+i:hover{
+    color: var(--cafe);
+}
+
+.carousel-item img {
+    height: 480px;
+    object-fit: cover;
+}
+
+.carousel-control-prev {
+    left: 0px;
+}
+
+.carousel-control-next {
+    right: 0px;
+}
+
+.carousel-item {
+    position: relative;
+}
+
+.texto-carrusel {
+    position: absolute;
+    top: 50%;
+    left: 11%;
+    transform: translateY(-50%);
+    max-width: 450px;
+    color: #1A1A1A;
+}
+
+.texto-carrusel h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem;
+    font-weight: 400;
+    line-height: 1.05;
+    margin-bottom: 20px;
+}
+
+.texto-carrusel p {
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+.texto-carrusel .btn {
+    background-color: #8B6B4F;
+    border-color: #8B6B4F;
+    border-radius: 0;
+    padding: 12px 25px;
+}
+
+.texto-carrusel .btn:hover {
+    background-color: #3B2F2A;
+    border-color: #3B2F2A;
+}
+
+
+.texto-carrusel-2 {
+    position: absolute;
+    top: 50%;
+    left: 11%;
+    transform: translateY(-50%);
+    max-width: 450px;
+    color: #1A1A1A;
+}
+
+.texto-carrusel-2 h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem;
+    font-weight: 400;
+    line-height: 1.05;
+    margin-bottom: 20px;
+    color: white;
+}
+
+.texto-carrusel-2 p {
+    line-height: 1.6;
+    margin-bottom: 25px;
+    color: white;
+}
+
+.texto-carrusel-2 .btn {
+    background-color: #8A1919;
+    border-color: #8A1919;
+    border-radius: 0;
+    padding: 12px 25px;
+}
+
+.texto-carrusel-2 .btn:hover {
+    background-color: #4D0909;
+    border-color: #4D0909;
+}
+
+.footer{
+    background-color: var(--cafe-oscuro);
+}
+
+/*  */
+
+.mapaWeb{
+    width: 100%;
+    height: 200px; 
+}
+
+.mapaWeb iframe {
+    width: 100%;
+    height: 100%;
+}
+
+.mapaWeb {
+        height: 100%; 
+    }
+
+@media (max-width: 576px) {
+    .mapaWeb{
+        height: 100%;
+    }
+
+}
+
+/*COLECCIÓN*/
+/*BANNER*/
+.banner-coleccion {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+}
+
+.banner-coleccion img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.banner-coleccion::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
+}
+
+.banner-coleccion-texto {
+    position: absolute;
+    z-index: 2;
+
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    text-align: center;
+    color: white;
+
+    width: 90%;
+}
+
+.banner-coleccion-texto h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.banner-coleccion-texto p {
+    font-size: 1.1rem;
+    margin-bottom: 25px;
+}
+
+
+@media (max-width: 768px) {
+    .texto-carrusel {
+        left: 5%;
+        max-width: 300px;
+    }
+
+    .texto-carrusel h1 {
+        font-size: 2rem;
+    }
+
+    .carousel-item img {
+        height: 300px;
+    }
+
+    .navbar .nav-link {
+        margin: 5px 0;
+        text-align: center;
+    }
+
+    .texto-carrusel-2 {
+        left: 5%;
+        max-width: 300px;
+    }
+
+    .texto-carrusel-2 h1 {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 572px) {
+    .texto-carrusel {
+        position: static; 
+        transform: none;
+        max-width: 100%;
+        padding: 15px;
+        text-align: center;
+    }
+
+    .texto-carrusel h1 {
+        font-size: 1.5rem;
+    }
+.carousel-item img {
+        height: 220px;
+    }
+
+    i {
+        font-size: 20px;
+        padding: 5px;
+    }
+
+    .texto-carrusel-2 {
+        position: static; 
+        transform: none;
+        max-width: 100%;
+        padding: 15px;
+        text-align: center;
+    }
+
+    .texto-carrusel-2 h1 {
+        font-size: 1.5rem;
+        color: black;
+    }
+
+    .texto-carrusel-2 p {
+        color: black;
+    }
+}
+
+
+.precio-anterior {
+  text-decoration: line-through; 
+  color: #888888;               
+  font-size: 0.9rem;             
+  margin-right: 8px;             
+}
+
+.precio-actual {
+  font-weight: bold;
+  color: #462e2d;                
+  font-size: 1.2rem;
+}

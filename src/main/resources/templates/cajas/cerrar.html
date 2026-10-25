@@ -1,0 +1,88 @@
+
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cerrar caja | Yuliana Calzados</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+          rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-7 col-lg-6">
+
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-4">
+
+                    <h2 class="fw-bold mb-2">Cerrar caja</h2>
+                    <p class="text-muted">
+                        Registra el monto contado al finalizar el turno.
+                    </p>
+
+                    <div class="alert alert-warning">
+                        <i class="bi bi-exclamation-triangle me-2"></i>
+                        Una vez cerrada, esta caja no podrá volver a cerrarse.
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Número de caja</label>
+                        <input type="text"
+                               class="form-control"
+                               th:value="${caja.idCaja}"
+                               readonly>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Monto inicial (S/)</label>
+                        <input type="text"
+                               class="form-control"
+                               th:value="${caja.montoInicialCaja}"
+                               readonly>
+                    </div>
+
+                    <form th:action="@{/cajas/cerrar/{id}(id=${caja.idCaja})}"
+                          method="post">
+
+                        <div class="mb-3">
+                            <label for="montoFinalCaja" class="form-label">
+                                Monto final contado (S/)
+                            </label>
+
+                            <input type="number"
+                                   id="montoFinalCaja"
+                                   name="montoFinalCaja"
+                                   class="form-control"
+                                   min="0"
+                                   step="0.01"
+                                   required>
+                        </div>
+
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-dark">
+                                <i class="bi bi-lock me-1"></i>
+                                Confirmar cierre
+                            </button>
+
+                            <a th:href="@{/cajas}"
+                               class="btn btn-outline-secondary">
+                                Cancelar
+                            </a>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

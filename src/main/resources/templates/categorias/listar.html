@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Gestionar categorías | Yuliana Calzados</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+</head>
+<body class="bg-light">
+<div class="container py-5">
+    <h1 class="mb-4">Categorías de calzado</h1>
+
+    <a th:href="@{/categorias/nuevo}" class="btn btn-dark mb-3">
+        Nueva categoría
+    </a>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped bg-white">
+            <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="categoria : ${categorias}">
+                <td th:text="${categoria.idCategoria}"></td>
+                <td th:text="${categoria.nombreCat}"></td>
+                <td th:text="${categoria.descripcionCat}"></td>
+                <td>
+                    <a th:href="@{/categorias/editar/{id}(id=${categoria.idCategoria})}"
+                       class="btn btn-warning btn-sm">Editar</a>
+
+                    <form th:action="@{/categorias/eliminar/{id}(id=${categoria.idCategoria})}"
+                          method="post" class="d-inline"
+                          onsubmit="return confirm('¿Eliminar esta categoría?')">
+                        <button type="submit" class="btn btn-danger btn-sm">
+                            Eliminar
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(categorias)}">
+                <td colspan="4" class="text-center">
+                    Todavía no hay categorías registradas.
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

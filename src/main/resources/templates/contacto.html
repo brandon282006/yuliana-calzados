@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto | Yuliana Calzados</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav th:replace="fragmentos/navbar :: nbar"></nav>
+
+    <main class="container my-5">
+
+        <div class="text-center mb-5">
+            <h1 class="fw-bold">Contáctanos</h1>
+            <p class="text-muted">
+                Estamos aquí para ayudarte.
+            </p>
+        </div>
+
+        <div class="row g-4">
+
+            <!-- Formulario -->
+            <div class="col-lg-7">
+
+                <div class="card shadow-sm border-0 p-4">
+
+                    <h4 class="fw-bold mb-4">
+                        <i class="bi bi-envelope me-2"></i>
+                        Envíanos un mensaje
+                    </h4>
+
+                    <form>
+
+                        <div class="mb-3">
+                            <label class="form-label">Nombre completo</label>
+                            <input type="text"
+                                   class="form-control"
+                                   placeholder="Ingresa tu nombre"
+                                   required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Correo electrónico</label>
+                            <input type="email"
+                                   class="form-control"
+                                   placeholder="nombre@correo.com"
+                                   required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Mensaje</label>
+                            <textarea class="form-control"
+                                      rows="5"
+                                      placeholder="Escribe tu mensaje..."
+                                      required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-dark">
+                            Enviar mensaje
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+            <!-- Información -->
+            <div class="col-lg-5">
+
+                <div class="card shadow-sm border-0 p-4">
+
+                    <h4 class="fw-bold mb-4">
+                        Información de contacto
+                    </h4>
+
+                    <p>
+                        <i class="bi bi-whatsapp me-2"></i>
+                        <strong>WhatsApp:</strong> 960 395 394
+                    </p>
+
+                    <p>
+                        <i class="bi bi-envelope me-2"></i>
+                        <strong>Correo:</strong> yulianacalzados@gmail.com
+                    </p>
+
+                    <p>
+                        <i class="bi bi-clock me-2"></i>
+                        <strong>Horario:</strong> Lunes a Sábado, 9am - 7pm
+                    </p>
+
+                    <p>
+                        <i class="bi bi-geo-alt me-2"></i>
+                        <strong>Ubicación:</strong> Trujillo
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Modal Login -->
+    <div th:replace="fragmentos/modal-login :: modal-login"></div>
+
+    <!-- Carrito -->
+    <div th:replace="fragmentos/offcanvas-carrito :: offcanvas-carrito"></div>
+
+    <!-- Footer -->
+    <div th:replace="fragmentos/footer :: footer"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script th:src="@{/js/carrito.js}"></script>
+
+</body>
+
+</html>

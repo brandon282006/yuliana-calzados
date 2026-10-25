@@ -1,0 +1,42 @@
+<nav th:fragment="nbar" class="navbar navbar-expand-lg navbar-light sticky-top shadow-sm">
+    <div class="container-fluid">
+      <a class="navbar-brand" th:href="@{/index}">
+        <img th:src="@{/img/logo.jpeg}" alt="Nombre">
+      </a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" th:href="@{/index}">INICIO</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" th:href="@{/#ofertas}"> OFERTAS </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" th:href="@{/coleccion}">COLECCIÓN</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" th:href="@{/contacto}">CONTACTO</a>
+          </li>
+        </ul>
+
+        <!-- Ícono persona en el navbar -->
+        <a href="#" data-bs-toggle="modal" data-bs-target="#modalLogin">
+          <i class="bi bi-person text-dark" role="button" style="cursor: pointer"></i>
+        </a>
+        <!-- icono del carrito -->
+
+        <i class="bi bi-cart2 text-dark" role="button" style="cursor: pointer;" data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvasCarrito" aria-controls="offcanvasCarrito" ></i>
+
+      </div>
+    </div>
+  </nav>

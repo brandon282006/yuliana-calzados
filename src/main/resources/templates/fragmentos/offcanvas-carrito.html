@@ -1,0 +1,29 @@
+<div th:fragment="offcanvas-carrito" class="offcanvas offcanvas-end" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
+    id="offcanvasCarrito" aria-labelledby="offcanvasCarritoLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasCarritoLabel">
+            <i class="bi bi-cart2 me-2"></i>Mi Carrito
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+
+    <div class="offcanvas-body d-flex flex-column">    
+        <div id="listaCarritoOffcanvas"></div>
+
+        <div class="mt-auto">
+            <div class="d-flex justify-content-between fw-bold mb-3">
+                <span>Total</span>
+                <span id="totalOffcanvas">S/ 0.00</span>
+            </div>
+            <div class="d-grid gap-2">
+                <a th:href="@{/coleccion}" class="btn btn-secondary w-100">
+                    Seguir comprando
+                </a>
+
+                <a th:href="@{/carrito}" class="btn btn-dark w-100">
+                    Ver carrito y proceder al pago
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

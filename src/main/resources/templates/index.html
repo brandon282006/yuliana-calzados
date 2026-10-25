@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Yuliana Calzados</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+
+<body>
+
+    <!--Navbar-->
+    <nav th:replace="fragmentos/navbar :: nbar"></nav>
+
+    <!-- Modal de Iniciar Sesión -->
+    <div th:replace="fragmentos/modal-login :: modal-login"></div>
+
+    <!--Banner carrusel-->
+    <div id="carouselExampleIndicators" class="carousel slide">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
+                aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                aria-label="Slide 2"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img th:src="@{/img/banner1.jpeg}" class="d-block w-100" alt="Tacones">
+
+                <div class="texto-carrusel">
+                    <h1>Camina con confianza,<br>brilla con estilo.</h1>
+                    <p>Calzado diseñado para mujeres que buscan elegancia, comodidad y calidad.</p>
+                    <a th:href="@{/coleccion}" class="btn btn-dark text-white">Descubrir colección</a>
+                </div>
+            </div>
+
+            <div class="carousel-item">
+                <img th:src="@{/img/banner2.jpg}" class="d-block w-100" alt="Zapatillas">
+
+                <div class="texto-carrusel-2">
+                    <h1>El estilo no tiene por qué ser costoso.</h1>
+                    <p>Renueva tu estilo con nuestros diseños seleccionados a precios que no querrás perderte.</p>
+                    <a th:href="@{/#ofertas}" class="btn btn-dark text-white">Descubrir ofertas</a>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+            data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+            data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+    <!-- Offcanvas del carrito -->
+    <div th:replace="fragmentos/offcanvas-carrito :: offcanvas-carrito"></div>
+    <!---->
+
+    <!--Alerta promocional-->
+    <div class="container mt-4">
+        <div class="alert text-center shadow-sm" role="alert">
+            <strong>¡Oferta especial!</strong> Obtén un 15% de descuento en tu primera compra.
+        </div>
+    </div>
+    <!---->
+
+    <!--Cards-->
+    <div class="container my-5" id="ofertas">
+        <h2 class="text-center mb-4">Ofertas Especiales</h2>
+        <div class="row g-4">
+
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="card h-100 shadow-sm">
+                    <img th:src="@{/img/stilleto_clasico.jpeg}" class="card-img-top" style="height: 250px; object-fit: cover;"
+                        alt="Tacón Stiletto Negro">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">Stiletto Clásico</h5>
+                        <p class="card-text text-muted">Tacón fino de 9 cm con acabado charol y plantilla acolchada.</p>
+                        <span class="precio-actual">S/ 149.90</span>
+                        <span class="precio-anterior">S/ 179.90</span>
+                        <button type="button" class="btn  mt-auto text-white btn-detalle" data-bs-toggle="modal"
+                            data-bs-target="#modalDetalle" data-id="1" data-producto="Stiletto Clásico" data-precio="149.90"
+                            th:data-imagen="@{/img/stilleto_clasico.jpeg}">
+                            Ver detalles
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="card h-100 shadow-sm">
+                    <img th:src="@{/img/sandalia_glam.jpeg}" class="card-img-top" style="height: 250px; object-fit: cover;"
+                        alt="Sandalias de Fiesta">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">Sandalia Glam Dorada</h5>
+                        <p class="card-text text-muted">Diseño con tiras finas cruzadas y acabado metalizado ideal para
+                            eventos.</p>
+                        <span class="precio-actual">S/ 119.90</span>
+                        <span class="precio-anterior">S/ 149.90</span>
+                        <button type="button" class="btn mt-auto text-white btn-detalle" data-bs-toggle="modal"
+                            data-bs-target="#modalDetalle" data-id="2" data-producto="Sandalia Glam Dorada" data-precio="119.90"
+                            th:data-imagen="@{/img/sandalia_glam.jpeg}">
+                            Ver detalles
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="card h-100 shadow-sm">
+                    <img th:src="@{/img/sneaker_urbana.jpeg}" class="card-img-top" style="height: 250px; object-fit: cover;"
+                        alt="Zapatilla Casual">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">Sneaker Urbana</h5>
+                        <p class="card-text text-muted">Suela ligera antideslizante y máxima comodidad diaria.</p>
+                        <span class="precio-actual">S/ 99.90</span>
+                        <span class="precio-anterior">S/ 139.90</span>
+                        <button type="button" class="btn btn mt-auto text-white mt-auto btn-detalle" data-bs-toggle="modal"
+                            data-bs-target="#modalDetalle" data-id="3" data-producto="Sneaker Urbana" data-precio="99.90"
+                            th:data-imagen="@{/img/sneaker_urbana.jpeg}">
+                            Ver detalles
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="card h-100 shadow-sm">
+                    <img th:src="@{/img/botin_cafe.jpeg}" class="card-img-top" style="height: 250px; object-fit: cover;"
+                        alt="Botines Casuales">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">Botín Café</h5>
+                        <p class="card-text text-muted">Ajuste elástico lateral con tacón ancho de 5 cm para uso
+                            prolongado.</p>
+                        <span class="precio-actual">S/ 119.90</span>
+                        <span class="precio-anterior">S/ 169.90</span>
+                        <button type="button" class="btn mt-auto text-white btn-detalle" data-bs-toggle="modal"
+                            data-bs-target="#modalDetalle" data-id="4" data-producto="Botín Cafe" data-precio="119.90"
+                            th:data-imagen="@{/img/botin_cafe.jpeg}">
+                            Ver detalles
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="card h-100 shadow-sm">
+                    <img th:src="@{/img/mocasin.jpeg}" class="card-img-top" style="height: 250px; object-fit: cover;"
+                        alt="Mocasín Clásico">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">Mocasín Morado</h5>
+                        <p class="card-text text-muted">Estilo ejecutivo con detalle de hebilla metálica y suela
+                            flexible.</p>
+                        <span class="precio-actual">S/ 109.90</span>
+                        <span class="precio-anterior">S/ 169.90</span>
+                        <button type="button" class="btn mt-auto text-white btn-detalle" data-bs-toggle="modal"
+                            data-bs-target="#modalDetalle" data-id="5" data-producto="Mocasín Morado" data-precio="109.90"
+                            th:data-imagen="@{/img/mocasin.jpeg}">
+                            Ver detalles
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="card h-100 shadow-sm">
+                    <img th:src="@{/img/botin_cafe.avif}"
+                        class="card-img-top" style="height: 250px; object-fit: cover;" alt="Botín Camel con Remaches">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">Botín Camel Vintage</h5>
+                        <p class="card-text text-muted">Acabado estilo nobuck en tono mostaza/camel, cierre lateral,
+                            remaches
+                            metálicos y hebilla decorativa.</p>
+                        <span class="precio-actual">S/ 89.90</span>
+                        <span class="precio-anterior">S/ 159.90</span>
+                        <button type="button" class="btn mt-auto text-white btn-detalle" data-bs-toggle="modal"
+                            data-bs-target="#modalDetalle" data-id="6" data-producto="Botín Camel Vintage" data-precio="89.90"
+                            th:data-imagen="@{/img/botin_cafe.avif}">
+                            Ver detalles
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!---->
+
+    <!--Modal (ventana emergente)-->
+    <div th:replace="fragmentos/modal-detalle :: modal-detalle"></div>
+    <!---->
+
+    <!--Formulario-->
+    <div class="container my-5" id="contacto">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-8 col-lg-6">
+                <div class="card p-4 shadow-sm border-0 bg-light">
+                    <h3 class="text-center fw-bold mb-2">Únete al Club</h3>
+                    <p class="text-center text-muted mb-4">Recibe un 15% de descuento en tu primera compra y entérate
+                        antes de las
+                        nuevas colecciones.</p>
+
+                    <form>
+                        <div class="mb-3">
+                            <label for="inputNombre" class="form-label fw-semibold">Nombre completo</label>
+                            <input type="text" class="form-control" id="inputNombre" placeholder="Ingresa tu nombre"
+                                required minlength="3">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="inputEmail" class="form-label fw-semibold">Correo electrónico</label>
+                            <input type="email" class="form-control" id="inputEmail" placeholder="nombre@correo.com"
+                                required>
+                            <div class="form-text">Nunca compartiremos tus datos con terceros.</div>
+                        </div>
+
+                        <div class="mb-4 form-check">
+                            <input type="checkbox" class="form-check-input" id="checkTerminos" required>
+                            <label class="form-check-label text-muted small" for="checkTerminos">
+                                Acepto recibir novedades, promociones y ofertas exclusivas por correo.
+                            </label>
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-dark btn-lg">Suscribirme</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!---->
+
+    <!--Footer-->
+    <div th:replace="fragmentos/footer :: footer"></div>
+    <!---->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+
+    <script th:src="@{/js/carrito.js}"></script>
+</body>
+
+</html>

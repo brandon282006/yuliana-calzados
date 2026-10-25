@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Formulario de usuario - Yuliana Calzados</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+</head>
+<body class="container py-5">
+
+    <h1 class="mb-4"
+        th:text="${usuario.idUsuario == null ? 'Nuevo usuario' : 'Editar usuario'}">
+        Nuevo usuario
+    </h1>
+
+    <form th:action="@{/usuarios/guardar}"
+          th:object="${usuario}" method="post">
+
+        <input type="hidden" th:field="*{idUsuario}">
+
+        <div class="mb-3">
+            <label class="form-label">Correo electrónico</label>
+            <input type="email" th:field="*{correoUsu}" class="form-control">
+            <div class="text-danger" th:errors="*{correoUsu}"></div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Contraseña</label>
+            <input type="password" th:field="*{contrasenaUsu}"
+                   class="form-control" minlength="8" required>
+            <div class="text-danger" th:errors="*{contrasenaUsu}"></div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Estado</label>
+            <select th:field="*{estadoUsu}" class="form-select">
+                <option value="Activo">Activo</option>
+                <option value="Inactivo">Inactivo</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-dark">Guardar</button>
+        <a th:href="@{/usuarios}" class="btn btn-secondary">Cancelar</a>
+
+    </form>
+
+</body>
+</html>

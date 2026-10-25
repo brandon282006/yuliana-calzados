@@ -1,0 +1,122 @@
+
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Formulario de trabajador | Yuliana Calzados</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container py-5">
+
+    <div class="card shadow-sm mx-auto" style="max-width: 650px;">
+        <div class="card-body p-4">
+
+            <h1 class="h3 mb-4">Datos del trabajador</h1>
+
+            <form th:action="@{/trabajadores/guardar}"
+                  th:object="${trabajador}"
+                  method="post">
+
+                <input type="hidden"
+                       th:field="*{idTrabajador}">
+
+                <div class="mb-3">
+                    <label class="form-label">Cuenta de usuario</label>
+
+                    <select class="form-select"
+                            th:field="*{usuario.idUsuario}"
+                            required>
+
+                        <option value="">Selecciona una cuenta</option>
+
+                        <option th:each="u : ${usuariosDisponibles}"
+                                th:value="${u.idUsuario}"
+                                th:text="${u.correoUsu}">
+                        </option>
+                    </select>
+
+                    <div class="text-danger small"
+                         th:if="${#fields.hasErrors('usuario')}"
+                         th:errors="*{usuario}">
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Nombre</label>
+
+                    <input type="text"
+                           class="form-control"
+                           th:field="*{nombreTra}"
+                           maxlength="100"
+                           required>
+
+                    <div class="text-danger small"
+                         th:errors="*{nombreTra}">
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Apellido</label>
+
+                    <input type="text"
+                           class="form-control"
+                           th:field="*{apellidoTra}"
+                           maxlength="100">
+
+                    <div class="text-danger small"
+                         th:errors="*{apellidoTra}">
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Teléfono</label>
+
+                    <input type="text"
+                           class="form-control"
+                           th:field="*{telefonoTra}"
+                           maxlength="9">
+
+                    <div class="text-danger small"
+                         th:errors="*{telefonoTra}">
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label">Cargo</label>
+
+                    <select class="form-select"
+                            th:field="*{cargoTra}"
+                            required>
+
+                        <option value="">Selecciona un cargo</option>
+                        <option value="Administrador">Administrador</option>
+                        <option value="Vendedor">Vendedor</option>
+                    </select>
+
+                    <div class="text-danger small"
+                         th:errors="*{cargoTra}">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-dark">
+                    Guardar trabajador
+                </button>
+
+                <a th:href="@{/trabajadores}"
+                   class="btn btn-outline-secondary">
+                    Cancelar
+                </a>
+
+            </form>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

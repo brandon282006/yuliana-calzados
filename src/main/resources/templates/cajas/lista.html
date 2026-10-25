@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Gestión de cajas | Yuliana Calzados</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+
+<body class="bg-light">
+
+    <div class="container py-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h2 class="fw-bold">Gestión de cajas</h2>
+                <p class="text-muted mb-0">
+                    Administra las cajas de los vendedores.
+                </p>
+            </div>
+
+            <a th:href="@{/cajas/nuevo}" class="btn btn-dark">
+                <i class="bi bi-plus-circle me-1"></i>
+                Nueva caja
+            </a>
+        </div>
+
+        <div class="card border-0 shadow-sm">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>ID</th>
+                                <th>Vendedor</th>
+                                <th>Apertura</th>
+                                <th>Cierre</th>
+                                <th>Monto inicial</th>
+                                <th>Monto final</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr th:each="caja : ${cajas}">
+                                <td th:text="${caja.idCaja}"></td>
+
+                                <td th:text="${caja.vendedor != null
+                            ? caja.vendedor.nombreTra + ' ' + caja.vendedor.apellidoTra
+                            : 'Sin vendedor'}"></td>
+
+                                <td th:text="${caja.fechaAperturaCaja != null
+                            ? #temporals.format(caja.fechaAperturaCaja, 'dd/MM/yyyy HH:mm')
+                            : '-'}"></td>
+
+                                <td th:text="${caja.fechaCierreCaja != null
+                            ? #temporals.format(caja.fechaCierreCaja, 'dd/MM/yyyy HH:mm')
+                            : '-'}"></td>
+
+                                <td th:text="${caja.montoInicialCaja}"></td>
+
+                                <td th:text="${caja.montoFinalCaja != null
+                            ? caja.montoFinalCaja
+                            : '-'}"></td>
+
+                                <td>
+                                    <span class="badge" th:classappend="${caja.estadoCaja.name() == 'Abierta'}
+                                  ? ' text-bg-success' : ' text-bg-secondary'" th:text="${caja.estadoCaja}"></span>
+                                </td>
+
+                                <td>
+                                    <a th:if="${caja.estadoCaja.name() == 'Abierta'}"
+                                        th:href="@{/cajas/editar/{id}(id=${caja.idCaja})}"
+                                        class="btn btn-sm btn-outline-primary" title="Editar">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+
+                                    <a th:if="${caja.estadoCaja.name() == 'Abierta'}"
+                                        th:href="@{/cajas/cerrar/{id}(id=${caja.idCaja})}"
+                                        class="btn btn-sm btn-outline-success" title="Cerrar caja">
+                                        <i class="bi bi-lock"></i>
+                                    </a>
+
+                                    <form th:action="@{/cajas/eliminar/{id}(id=${caja.idCaja})}" method="post"
+                                        class="d-inline" onsubmit="return confirm('¿Deseas eliminar esta caja?');">
+                                        <button type="submit" class="btn btn-sm btn-outline-danger" title="Eliminar">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+
+                            <tr th:if="${#lists.isEmpty(cajas)}">
+                                <td colspan="8" class="text-center text-muted py-4">
+                                    No hay cajas registradas.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <a th:href="@{/index}" class="btn btn-outline-secondary">
+                    <i class="bi bi-arrow-left me-1"></i>
+                    Volver al inicio
+                </a>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

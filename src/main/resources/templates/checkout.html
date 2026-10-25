@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Finalizar Compra | Yuliana Calzados</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <nav th:replace="fragmentos/navbar :: nbar"></nav>
+  <!---->
+  
+  <!-- Contenido Principal: Checkout -->
+  <main class="container my-5">
+
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="mb-4">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a th:href="@{/index}" class="text-dark">Home</a></li>
+        <li class="breadcrumb-item"><a th:href="@{/carrito}" class="text-dark">Carrito</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Finalizar compra</li>
+      </ol>
+    </nav>
+
+    <h2 class="fw-bold mb-4">Proceso de Pago y Envío</h2>
+
+    <!-- Formulario Principal -->
+    <form id="formCheckout">
+      <div class="row g-4">
+
+        <!-- Lado Izquierdo: Formulario de Envío y Pago -->
+        <div class="col-lg-8">
+
+          <!-- Card 1: Datos Personales y Envío -->
+          <div class="card shadow-sm border-0 mb-4">
+            <div class="card-body p-4">
+              <h5 class="card-title fw-bold mb-3"><i class="bi bi-geo-alt me-2"></i>Información de Envío</h5>
+
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="nombreCliente" class="form-label">Nombres completos</label>
+                    <input type="text" class="form-control" id="nombreCliente" name="nombre" placeholder="Ej. María López" required>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="telefonoCliente" class="form-label">Teléfono / WhatsApp</label>
+                    <input type="tel" class="form-control" id="telefonoCliente" name="telefono" placeholder="Ej. 987654321" required>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="correoCliente" class="form-label">Correo electrónico</label>
+                    <input type="email" class="form-control" id="correoCliente" name="correo" placeholder="nombre@correo.com" required>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="departamentoCliente" class="form-label">Ciudad / Departamento</label>
+                    <select class="form-select" id="departamentoCliente" name="departamento" required>
+                      <option value="" selected disabled>Selecciona tu ciudad...</option>
+                      <option value="trujillo">Trujillo</option>
+                      <option value="lima">Lima</option>
+                      <option value="arequipa">Arequipa</option>
+                      <option value="chiclayo">Chiclayo</option>
+                      <option value="otra">Otra provincia</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="col-12">
+                  <div class="mb-3">
+                    <label for="direccionCliente" class="form-label">Dirección de entrega</label>
+                    <input type="text" class="form-control" id="direccionCliente" name="direccion" placeholder="Av. España 123, Dpto / Casa" required>
+                  </div>
+                </div>
+
+                <div class="col-12">
+                  <div class="mb-3">
+                    <label for="referenciaCliente" class="form-label">Referencia de ubicación (Opcional)</label>
+                    <input type="text" class="form-control" id="referenciaCliente" name="referencia" placeholder="Frente al parque / Portón blanco">
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Card 2: Método de Pago -->
+          <div class="card shadow-sm border-0">
+            <div class="card-body p-4">
+              <h5 class="card-title fw-bold mb-3"><i class="bi bi-credit-card me-2"></i>Método de Pago</h5>
+
+              <div class="mb-3">
+                <div class="form-check mb-3">
+                  <input class="form-check-input" type="radio" name="metodoPagoCheckout" id="pagoTarjetaCheckout" value="Tarjeta de Crédito / Débito" checked required>
+                  <label class="form-check-label fw-semibold" for="pagoTarjetaCheckout">
+                    Tarjeta de Crédito / Débito
+                  </label>
+                  <div class="form-text">Aceptamos Visa, Mastercard, American Express y Diners.</div>
+                </div>
+
+                <div class="form-check mb-3">
+                  <input class="form-check-input" type="radio" name="metodoPagoCheckout" id="pagoYapeCheckout"  value="Yape / Plin" required>
+                  <label class="form-check-label fw-semibold" for="pagoYapeCheckout">
+                    Yape / Plin (Billeteras Digitales)
+                  </label>
+                  <div class="form-text">Te mostraremos el código QR o número de destino al confirmar.</div>
+                </div>
+
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="metodoPagoCheckout" id="pagoTransferenciaCheckout" value="Transferencia Bancaria" required>
+                  <label class="form-check-label fw-semibold" for="pagoTransferenciaCheckout">
+                    Transferencia Bancaria (BCP / Interbank)
+                  </label>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Lado derecho: Resumen del Pedido -->
+        <div class="col-lg-4">
+          <div class="card shadow-sm border-0 p-3">
+            <div class="card-body">
+              <h5 class="card-title fw-bold mb-3">Resumen de la Orden</h5>
+
+              <div id="resumenCheckout" class="mb-3"></div>
+
+              <hr>
+
+              <!-- Totales (List Group) -->
+              <ul class="list-group list-group-flush mb-4">
+                <li class="list-group-item d-flex justify-content-between align-items-center bg-transparent px-0">
+                  Subtotal
+                  <span id="subtotalCheckout">S/ 0.00</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center bg-transparent px-0">
+                  Envío a domicilio
+                  <span id="envioCheckout">S/ 0.00</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center bg-transparent px-0 fw-bold fs-5 border-top pt-3">
+                  Total
+                  <span id="totalCheckout" class="precio-actual">S/ 0.00</span>
+                </li>
+              </ul>
+
+              <!-- Botón de Confirmación -->
+              <div class="d-grid gap-2">
+                <button type="submit" id="btnConfirmarPedido" class="btn btn-dark btn-lg fs-6">Realizar Pedido</button>
+                <a th:href="@{/carrito}" class="btn btn-secondary btn-lg fs-6 text-center">Volver al Carrito</a>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </form>
+  </main>
+
+  <!-- Modal Iniciar Sesión -->
+  <div th:replace="fragmentos/modal-login :: modal-login"></div>
+  <!---->
+
+  <!-- Offcanvas Carrito -->
+  <div th:replace="fragmentos/offcanvas-carrito :: offcanvas-carrito"></div>
+  <!---->
+  
+  <!-- Footer -->
+  <div th:replace="fragmentos/footer :: footer"></div>
+  <!---->
+  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+
+  <script th:src="@{/js/carrito.js}"></script>
+</body>
+
+</html>

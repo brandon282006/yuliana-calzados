@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Nueva venta física</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container py-5">
+    <div class="card shadow-sm mx-auto" style="max-width: 750px;">
+        <div class="card-body p-4">
+
+            <h2 class="mb-4">Registrar venta física</h2>
+
+            <div th:if="${error != null}"
+                 class="alert alert-danger"
+                 th:text="${error}">
+            </div>
+
+            <form th:action="@{/ventas-fisicas/guardar}" method="post">
+
+                <div class="mb-3">
+                    <label class="form-label">Cliente (opcional)</label>
+
+                    <select name="idCliente" class="form-select">
+                        <option value="">Venta sin cliente registrado</option>
+
+                        <option th:each="cliente : ${clientes}"
+                                th:value="${cliente.idCliente}"
+                                th:text="${cliente.nombreCli + ' ' + cliente.apellidoCli}">
+                        </option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Caja abierta</label>
+
+                    <select name="idCaja" class="form-select" required>
+                        <option value="">Selecciona una caja</option>
+
+                        <option th:each="caja : ${cajas}"
+                                th:value="${caja.idCaja}"
+                                th:text="${'Caja #' + caja.idCaja
+                                    + ' - Vendedor: '
+                                    + caja.vendedor.nombreTra + ' '
+                                    + caja.vendedor.apellidoTra}">
+                        </option>
+                    </select>
+
+                    <div th:if="${#lists.isEmpty(cajas)}"
+                         class="form-text text-danger">
+                        No hay cajas abiertas. Debes abrir una caja antes de vender.
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Producto, talla y color</label>
+
+                    <select name="idVariacion" class="form-select" required>
+                        <option value="">Selecciona una variación</option>
+
+                        <option th:each="variacion : ${variaciones}"
+                                th:value="${variacion.idVariacion}"
+                                th:text="${variacion.producto.modeloProd
+                                    + ' | Talla: ' + variacion.talla
+                                    + ' | Color: ' + variacion.colorPv
+                                    + ' | Stock: ' + variacion.stock
+                                    + ' | Precio: S/ '
+                                    + variacion.producto.precioProd}">
+                        </option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Cantidad</label>
+                    <input type="number"
+                           name="cantidad"
+                           class="form-control"
+                           min="1"
+                           value="1"
+                           required>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label">Método de pago</label>
+
+                    <select name="metodoPagoFis" class="form-select" required>
+                        <option value="">Selecciona un método</option>
+                        <option value="Efectivo">Efectivo</option>
+                        <option value="Tarjeta">Tarjeta</option>
+                        <option value="Yape_Plin">Yape / Plin</option>
+                        <option value="Transferencia">Transferencia</option>
+                    </select>
+                </div>
+
+                <div class="d-flex gap-2">
+                    <button type="submit"
+                            class="btn btn-dark"
+                            th:disabled="${#lists.isEmpty(cajas) or #lists.isEmpty(variaciones)}">
+                        Registrar venta
+                    </button>
+
+                    <a th:href="@{/ventas-fisicas}"
+                       class="btn btn-outline-secondary">
+                        Cancelar
+                    </a>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

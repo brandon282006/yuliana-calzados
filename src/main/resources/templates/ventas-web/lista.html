@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ventas web | Yuliana Calzados</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+          rel="stylesheet">
+</head>
+
+<body class="bg-light">
+
+<div class="container py-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="h3 mb-1">Ventas web</h1>
+            <p class="text-secondary mb-0">
+                Consulta los pedidos registrados en la tienda virtual.
+            </p>
+        </div>
+
+        <a th:href="@{/ventas-web/nuevo}" class="btn btn-dark">
+            <i class="bi bi-plus-lg"></i>
+            Nueva venta
+        </a>
+    </div>
+
+    <div class="card border-0 shadow-sm">
+        <div class="card-body">
+
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Carrito</th>
+                        <th>Fecha</th>
+                        <th>Dirección de envío</th>
+                        <th>Método de pago</th>
+                        <th>Estado del pago</th>
+                        <th>Estado de la venta</th>
+                        <th>Total</th>
+                        <th>Acciones</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr th:each="venta : ${ventasWeb}">
+                        <td th:text="${venta.idVentaWeb}"></td>
+
+                        <td th:text="${venta.carrito.idCarrito}"></td>
+
+                        <td th:text="${venta.fechaVentWeb != null
+                            ? #temporals.format(venta.fechaVentWeb, 'dd/MM/yyyy HH:mm')
+                            : 'Sin fecha'}"></td>
+
+                        <td th:text="${venta.direccionEnvioWeb}"></td>
+
+                        <td th:text="${venta.metodoPagoWeb}"></td>
+
+                        <td th:text="${venta.estadoPagoWeb}"></td>
+
+                        <td th:text="${venta.estadoVentWeb}"></td>
+
+                        <td th:text="${'S/ ' + #numbers.formatDecimal(venta.totalVentWeb, 1, 2)}"></td>
+
+                        <td>
+                            <a th:href="@{/ventas-web/ver/{id}(id=${venta.idVentaWeb})}"
+                               class="btn btn-sm btn-outline-dark"
+                               title="Ver venta">
+                                <i class="bi bi-eye"></i>
+                            </a>
+                        </td>
+                    </tr>
+
+                    <tr th:if="${#lists.isEmpty(ventasWeb)}">
+                        <td colspan="9"
+                            class="text-center text-secondary py-4">
+                            Todavía no hay ventas web registradas.
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+    <a th:href="@{/index}" class="btn btn-outline-secondary mt-3">
+        <i class="bi bi-arrow-left"></i>
+        Volver al inicio
+    </a>
+
+</div>
+
+</body>
+</html>

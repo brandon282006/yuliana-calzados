@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Formulario de cliente - Yuliana Calzados</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+</head>
+<body class="container py-5">
+
+    <h1 class="mb-4"
+        th:text="${cliente.idCliente == null ? 'Nuevo cliente' : 'Editar cliente'}">
+        Nuevo cliente
+    </h1>
+
+    <form th:action="@{/clientes/guardar}"
+          th:object="${cliente}" method="post">
+
+        <input type="hidden" th:field="*{idCliente}">
+
+        <div class="mb-3">
+            <label class="form-label">Cuenta de usuario</label>
+            <select th:field="*{usuario.idUsuario}" class="form-select" required>
+                <option value="">Selecciona una cuenta</option>
+                <option th:each="u : ${usuariosDisponibles}"
+                        th:value="${u.idUsuario}"
+                        th:text="${u.correoUsu}">
+                </option>
+            </select>
+            <div class="text-danger" th:errors="*{usuario}"></div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Nombre</label>
+            <input type="text" th:field="*{nombreCli}" class="form-control"
+                   maxlength="100" required>
+            <div class="text-danger" th:errors="*{nombreCli}"></div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Apellido</label>
+            <input type="text" th:field="*{apellidoCli}" class="form-control"
+                   maxlength="100">
+            <div class="text-danger" th:errors="*{apellidoCli}"></div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Teléfono</label>
+            <input type="tel" th:field="*{telefonoCli}" class="form-control"
+                   maxlength="9" pattern="[0-9]{9}">
+            <div class="text-danger" th:errors="*{telefonoCli}"></div>
+        </div>
+
+        <button type="submit" class="btn btn-dark">Guardar</button>
+        <a th:href="@{/clientes}" class="btn btn-secondary">Cancelar</a>
+
+    </form>
+
+</body>
+</html>

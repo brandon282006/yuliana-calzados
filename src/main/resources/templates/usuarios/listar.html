@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Usuarios - Yuliana Calzados</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+</head>
+<body class="container py-5">
+
+    <h1 class="mb-4">Gestión de usuarios</h1>
+
+    <a th:href="@{/usuarios/nuevo}" class="btn btn-dark mb-3">
+        Nuevo usuario
+    </a>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Correo</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="u : ${usuarios}">
+                    <td th:text="${u.idUsuario}"></td>
+                    <td th:text="${u.correoUsu}"></td>
+                    <td th:text="${u.estadoUsu}"></td>
+                    <td>
+                        <a th:href="@{/usuarios/editar/{id}(id=${u.idUsuario})}"
+                           class="btn btn-warning btn-sm">Editar</a>
+
+                        <form th:action="@{/usuarios/eliminar/{id}(id=${u.idUsuario})}"
+                              method="post" class="d-inline"
+                              onsubmit="return confirm('¿Eliminar este usuario?')">
+                            <button class="btn btn-danger btn-sm" type="submit">
+                                Eliminar
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(usuarios)}">
+                    <td colspan="4" class="text-center">
+                        No hay usuarios registrados.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <a th:href="@{/index}" class="btn btn-outline-secondary">Volver al inicio</a>
+
+</body>
+</html>

@@ -1,0 +1,186 @@
+
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Inventario de tallas | Yuliana Calzados</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+          rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #FAF7F2;
+            color: #1A1A1A;
+        }
+
+        .navbar {
+            background-color: #1A1A1A;
+        }
+
+        .navbar-brand {
+            color: #C9A86A;
+            font-weight: 700;
+        }
+
+        .titulo {
+            color: #1d1714;
+            font-weight: 700;
+        }
+
+        .tabla-contenedor {
+            background-color: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
+        }
+
+        .btn-calzado {
+            background-color: #8B6B4F;
+            color: white;
+        }
+
+        .btn-calzado:hover {
+            background-color: #6f523b;
+            color: white;
+        }
+
+        .stock-bajo {
+            color: #b42318;
+            font-weight: 700;
+        }
+
+        .stock-normal {
+            color: #16794B;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+
+<nav class="navbar navbar-dark">
+    <div class="container">
+        <a class="navbar-brand" th:href="@{/index}">
+            Yuliana Calzados
+        </a>
+
+        <a class="btn btn-outline-light btn-sm"
+           th:href="@{/index}">
+            <i class="bi bi-house"></i> Inicio
+        </a>
+    </div>
+</nav>
+
+<main class="container py-5">
+
+    <div class="d-flex flex-wrap justify-content-between
+                align-items-center gap-3 mb-4">
+
+        <div>
+            <h1 class="titulo h3">Inventario de tallas</h1>
+            <p class="text-secondary mb-0">
+                Administra las tallas y existencias de cada modelo.
+            </p>
+        </div>
+
+        <a th:href="@{/variaciones/nuevo}"
+           class="btn btn-calzado">
+            <i class="bi bi-plus-circle"></i>
+            Registrar talla
+        </a>
+    </div>
+
+    <div class="tabla-contenedor table-responsive">
+
+        <table class="table table-hover align-middle mb-0">
+
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Modelo</th>
+                    <th>Talla</th>
+                    <th>Color</th>
+                    <th>Stock</th>
+                    <th class="text-center">Acciones</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr th:each="variacion : ${variaciones}">
+
+                    <td th:text="${variacion.idVariacion}"></td>
+
+                    <td th:text="${variacion.producto.modeloProd}"></td>
+
+                    <td th:text="${variacion.talla}"></td>
+
+                    <td th:text="${variacion.colorPv}"></td>
+
+                    <td>
+                        <span th:if="${variacion.stock <= 5}"
+                              class="stock-bajo"
+                              th:text="${variacion.stock}">
+                        </span>
+
+                        <span th:if="${variacion.stock > 5}"
+                              class="stock-normal"
+                              th:text="${variacion.stock}">
+                        </span>
+                    </td>
+
+                    <td class="text-center">
+
+                        <a th:href="@{/variaciones/editar/{id}
+                            (id=${variacion.idVariacion})}"
+                           class="btn btn-sm btn-outline-secondary">
+                            <i class="bi bi-pencil"></i>
+                            Editar
+                        </a>
+
+                        <form th:action="@{/variaciones/eliminar/{id}
+                                  (id=${variacion.idVariacion})}"
+                              method="post"
+                              class="d-inline"
+                              onsubmit="return confirm('¿Deseas eliminar esta variación?')">
+
+                            <button type="submit"
+                                    class="btn btn-sm btn-outline-danger">
+                                <i class="bi bi-trash"></i>
+                                Eliminar
+                            </button>
+
+                        </form>
+
+                    </td>
+                </tr>
+
+                <tr th:if="${#lists.isEmpty(variaciones)}">
+                    <td colspan="5" class="text-center py-4 text-secondary">
+                        Todavía no hay tallas registradas.
+                    </td>
+                </tr>
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <a th:href="@{/index}"
+       class="btn btn-link text-secondary mt-3">
+        <i class="bi bi-arrow-left"></i> Volver al inicio
+    </a>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

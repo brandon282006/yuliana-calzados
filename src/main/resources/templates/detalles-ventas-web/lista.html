@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Detalles de venta web | Yuliana Calzados</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+          rel="stylesheet">
+</head>
+
+<body class="bg-light">
+
+<div class="container py-5">
+
+    <h1 class="h3 mb-1">Detalles de venta web</h1>
+    <p class="text-secondary mb-4">
+        Productos incluidos en el pedido seleccionado.
+    </p>
+
+    <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body">
+            <div class="row g-3">
+
+                <div class="col-md-4">
+                    <span class="text-secondary">Número de venta</span>
+                    <p class="fw-semibold mb-0"
+                       th:text="${ventaWeb.idVentaWeb}"></p>
+                </div>
+
+                <div class="col-md-4">
+                    <span class="text-secondary">Fecha</span>
+                    <p class="fw-semibold mb-0"
+                       th:text="${ventaWeb.fechaVentWeb != null
+                       ? #temporals.format(ventaWeb.fechaVentWeb, 'dd/MM/yyyy HH:mm')
+                       : 'Sin fecha'}"></p>
+                </div>
+
+                <div class="col-md-4">
+                    <span class="text-secondary">Total de la venta</span>
+                    <p class="fw-bold mb-0"
+                       th:text="${'S/ ' + #numbers.formatDecimal(ventaWeb.totalVentWeb, 1, 2)}"></p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="card border-0 shadow-sm">
+        <div class="card-body">
+
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead class="table-dark">
+                    <tr>
+                        <th>Producto</th>
+                        <th>Talla</th>
+                        <th>Color</th>
+                        <th>Cantidad</th>
+                        <th>Precio unitario</th>
+                        <th>Subtotal</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr th:each="detalle : ${detalles}">
+                        <td th:text="${detalle.variacion.producto.modeloProd}"></td>
+
+                        <td th:text="${detalle.variacion.talla}"></td>
+
+                        <td th:text="${detalle.variacion.colorPv}"></td>
+
+                        <td th:text="${detalle.cantidad}"></td>
+
+                        <td th:text="${'S/ ' + #numbers.formatDecimal(detalle.precioUnitario, 1, 2)}"></td>
+
+                        <td th:text="${'S/ ' + #numbers.formatDecimal(detalle.subtotal, 1, 2)}"></td>
+                    </tr>
+
+                    <tr th:if="${#lists.isEmpty(detalles)}">
+                        <td colspan="6"
+                            class="text-center text-secondary py-4">
+                            Esta venta todavía no tiene productos registrados.
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <a th:href="@{/ventas-web}"
+               class="btn btn-outline-secondary mt-2">
+                <i class="bi bi-arrow-left"></i>
+                Volver a ventas web
+            </a>
+
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Formulario de categoría | Yuliana Calzados</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+</head>
+<body class="bg-light">
+<div class="container py-5" style="max-width: 700px;">
+    <h1 class="mb-4"
+        th:text="${categoria.idCategoria == null ? 'Nueva categoría' : 'Editar categoría'}">
+    </h1>
+
+    <form th:action="@{/categorias/guardar}"
+          th:object="${categoria}" method="post">
+
+        <input type="hidden" th:field="*{idCategoria}">
+
+        <div class="mb-3">
+            <label for="nombreCat" class="form-label">Nombre</label>
+            <input id="nombreCat" type="text" th:field="*{nombreCat}"
+                   class="form-control"
+                   th:classappend="${#fields.hasErrors('nombreCat')} ? 'is-invalid' : ''">
+            <div class="invalid-feedback"
+                 th:if="${#fields.hasErrors('nombreCat')}"
+                 th:errors="*{nombreCat}"></div>
+        </div>
+
+        <div class="mb-3">
+            <label for="descripcionCat" class="form-label">Descripción</label>
+            <textarea id="descripcionCat" th:field="*{descripcionCat}"
+                      class="form-control" rows="3"
+                      th:classappend="${#fields.hasErrors('descripcionCat')} ? 'is-invalid' : ''"></textarea>
+            <div class="invalid-feedback"
+                 th:if="${#fields.hasErrors('descripcionCat')}"
+                 th:errors="*{descripcionCat}"></div>
+        </div>
+
+        <button type="submit" class="btn btn-dark">Guardar</button>
+        <a th:href="@{/categorias}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+</body>
+</html>

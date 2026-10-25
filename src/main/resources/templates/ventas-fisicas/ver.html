@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Detalle de venta física | Yuliana Calzados</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+
+<body class="bg-light">
+
+    <div class="container py-5">
+
+        <div class="mb-4">
+            <h1 class="h3">Detalle de venta física</h1>
+            <p class="text-secondary">
+                Consulta la información de la venta seleccionada.
+            </p>
+        </div>
+
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-dark text-white py-3">
+                Venta N.º
+                <span th:text="${ventaFisica.idVentaFisica}"></span>
+            </div>
+
+            <div class="card-body p-4">
+
+                <div class="row g-4">
+
+                    <div class="col-md-6">
+                        <label class="form-label text-secondary">Fecha</label>
+                        <p class="fw-semibold" th:text="${ventaFisica.fechaVentFis != null
+                       ? #temporals.format(ventaFisica.fechaVentFis, 'dd/MM/yyyy HH:mm')
+                       : 'Sin fecha'}"></p>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label text-secondary">Cliente</label>
+                        <p class="fw-semibold" th:if="${ventaFisica.cliente == null}">
+                            Cliente ocasional
+                        </p>
+                        <p class="fw-semibold" th:unless="${ventaFisica.cliente == null}"
+                            th:text="${ventaFisica.cliente.nombreCli + ' ' + ventaFisica.cliente.apellidoCli}">
+                        </p>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label text-secondary">Vendedor</label>
+                        <p class="fw-semibold"
+                            th:text="${ventaFisica.vendedor.nombreTra + ' ' + ventaFisica.vendedor.apellidoTra}">
+                        </p>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label text-secondary">Caja</label>
+                        <p class="fw-semibold" th:text="${ventaFisica.caja.idCaja}"></p>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label text-secondary">Método de pago</label>
+                        <p class="fw-semibold" th:text="${ventaFisica.metodoPagoFis}"></p>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label text-secondary">Estado del pago</label>
+                        <p>
+                            <span class="badge text-bg-info" th:text="${ventaFisica.estadoPagoFis}"></span>
+                        </p>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label text-secondary">Estado de la venta</label>
+                        <p>
+                            <span class="badge text-bg-secondary" th:text="${ventaFisica.estadoVentFis}"></span>
+                        </p>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label text-secondary">Total</label>
+                        <p class="fs-4 fw-bold"
+                            th:text="${'S/ ' + #numbers.formatDecimal(ventaFisica.totalVentFis, 1, 2)}"></p>
+                    </div>
+
+                </div>
+
+                <div class="alert alert-light border mt-3 mb-4">
+                    <i class="bi bi-info-circle"></i>
+                    Los productos y sus cantidades se mostrarán aquí cuando
+                    conectemos los detalles de la venta física.
+                </div>
+
+                <a th:href="@{/detalles-ventas-fisicas/{id}(id=${ventaFisica.idVentaFisica})}"
+                    class="btn btn-dark mb-3">
+                    <i class="bi bi-list-ul"></i>
+                    Ver productos vendidos
+                </a>
+
+                <a th:href="@{/ventas-fisicas}" class="btn btn-outline-secondary">
+                    <i class="bi bi-arrow-left"></i>
+                    Volver al listado
+                </a>
+
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

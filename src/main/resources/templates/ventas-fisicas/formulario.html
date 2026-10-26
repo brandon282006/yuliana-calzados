@@ -1,119 +1,169 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Nueva venta física</title>
+    <title>Registrar venta física | Yuliana Calzados</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap"
           rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" th:href="@{/css/admin.css}">
 </head>
-<body class="bg-light">
 
-<div class="container py-5">
-    <div class="card shadow-sm mx-auto" style="max-width: 750px;">
-        <div class="card-body p-4">
+<body class="admin-body">
 
-            <h2 class="mb-4">Registrar venta física</h2>
+    <div class="admin-shell">
 
-            <div th:if="${error != null}"
-                 class="alert alert-danger"
-                 th:text="${error}">
-            </div>
+        <div th:replace="~{fragmentos/vend-sidebar :: sidebar('ventas')}"></div>
 
-            <form th:action="@{/ventas-fisicas/guardar}" method="post">
+        <div class="admin-main">
 
-                <div class="mb-3">
-                    <label class="form-label">Cliente (opcional)</label>
+            <div th:replace="~{fragmentos/vend-topbar :: topbar('Registrar venta física', 'Registro de ventas y cobros')}"></div>
 
-                    <select name="idCliente" class="form-select">
-                        <option value="">Venta sin cliente registrado</option>
+            <main class="admin-content">
 
-                        <option th:each="cliente : ${clientes}"
-                                th:value="${cliente.idCliente}"
-                                th:text="${cliente.nombreCli + ' ' + cliente.apellidoCli}">
-                        </option>
-                    </select>
+                <div class="mb-4">
+                    <p class="admin-eyebrow text-uppercase small mb-2">PUNTO DE VENTA</p>
+                    <h1 class="h3 fw-bold mb-1">Registrar venta física</h1>
+                    <p class="text-secondary mb-0">
+                        Selecciona los datos de la venta, el producto y el método de pago.
+                    </p>
                 </div>
 
-                <div class="mb-3">
-                    <label class="form-label">Caja abierta</label>
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body p-4 p-lg-5">
 
-                    <select name="idCaja" class="form-select" required>
-                        <option value="">Selecciona una caja</option>
+                        <div class="alert alert-danger d-flex align-items-center gap-2 mb-4"
+                             role="alert"
+                             th:if="${error != null}">
+                            <i class="bi bi-exclamation-circle-fill"></i>
+                            <span th:text="${error}"></span>
+                        </div>
 
-                        <option th:each="caja : ${cajas}"
-                                th:value="${caja.idCaja}"
-                                th:text="${'Caja #' + caja.idCaja
-                                    + ' - Vendedor: '
-                                    + caja.vendedor.nombreTra + ' '
-                                    + caja.vendedor.apellidoTra}">
-                        </option>
-                    </select>
+                        <div class="d-flex align-items-center gap-3 mb-4 pb-3 border-bottom">
+                            <span class="stat-icon stat-icon-brown">
+                                <i class="bi bi-receipt"></i>
+                            </span>
+                            <div>
+                                <h2 class="h5 fw-bold mb-1">Detalle de la venta</h2>
+                                <p class="text-secondary small mb-0">
+                                    Revisa la selección antes de registrar el cobro.
+                                </p>
+                            </div>
+                        </div>
 
-                    <div th:if="${#lists.isEmpty(cajas)}"
-                         class="form-text text-danger">
-                        No hay cajas abiertas. Debes abrir una caja antes de vender.
+                        <form th:action="@{/ventas-fisicas/guardar}" method="post">
+
+                            <div class="row g-4">
+                                <div class="col-12 col-md-6">
+                                    <label for="idCliente" class="form-label fw-semibold">
+                                        Cliente <span class="text-secondary fw-normal">(opcional)</span>
+                                    </label>
+                                    <select id="idCliente" name="idCliente" class="form-select">
+                                        <option value="">Venta sin cliente registrado</option>
+                                        <option th:each="cliente : ${clientes}"
+                                                th:value="${cliente.idCliente}"
+                                                th:text="${cliente.nombreCli + ' ' + cliente.apellidoCli}">
+                                        </option>
+                                    </select>
+                                    <div class="form-text">
+                                        Puedes registrar la venta sin asociarla a un cliente.
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-6">
+                                    <label for="idCaja" class="form-label fw-semibold">
+                                        Caja abierta <span class="text-danger">*</span>
+                                    </label>
+                                    <select id="idCaja" name="idCaja" class="form-select" required>
+                                        <option value="">Selecciona una caja</option>
+                                        <option th:each="caja : ${cajas}"
+                                                th:value="${caja.idCaja}"
+                                                th:text="${'Caja #' + caja.idCaja
+                                                    + ' - Vendedor: '
+                                                    + caja.vendedor.nombreTra + ' '
+                                                    + caja.vendedor.apellidoTra}">
+                                        </option>
+                                    </select>
+                                    <div th:if="${#lists.isEmpty(cajas)}" class="form-text text-danger">
+                                        No hay cajas abiertas. Debes abrir una caja antes de vender.
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <label for="idVariacion" class="form-label fw-semibold">
+                                        Producto, talla y color <span class="text-danger">*</span>
+                                    </label>
+                                    <select id="idVariacion" name="idVariacion" class="form-select" required>
+                                        <option value="">Selecciona una variación</option>
+                                        <option th:each="variacion : ${variaciones}"
+                                                th:value="${variacion.idVariacion}"
+                                                th:text="${variacion.producto.modeloProd
+                                                    + ' | Talla: ' + variacion.talla
+                                                    + ' | Color: ' + variacion.colorPv
+                                                    + ' | Stock: ' + variacion.stock
+                                                    + ' | Precio: S/ '
+                                                    + variacion.producto.precioProd}">
+                                        </option>
+                                    </select>
+                                    <div th:if="${#lists.isEmpty(variaciones)}" class="form-text text-danger">
+                                        No hay variaciones con stock disponible para vender.
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-6">
+                                    <label for="cantidad" class="form-label fw-semibold">
+                                        Cantidad <span class="text-danger">*</span>
+                                    </label>
+                                    <input type="number"
+                                           id="cantidad"
+                                           name="cantidad"
+                                           class="form-control"
+                                           min="1"
+                                           value="1"
+                                           required>
+                                </div>
+
+                                <div class="col-12 col-md-6">
+                                    <label for="metodoPagoFis" class="form-label fw-semibold">
+                                        Método de pago <span class="text-danger">*</span>
+                                    </label>
+                                    <select id="metodoPagoFis" name="metodoPagoFis" class="form-select" required>
+                                        <option value="">Selecciona un método</option>
+                                        <option value="Efectivo">Efectivo</option>
+                                        <option value="Tarjeta">Tarjeta</option>
+                                        <option value="Yape_Plin">Yape / Plin</option>
+                                        <option value="Transferencia">Transferencia</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="d-flex flex-wrap justify-content-end gap-2 mt-4 pt-4 border-top">
+                                <a th:href="@{/ventas-fisicas}" class="btn btn-outline-secondary">
+                                    Cancelar
+                                </a>
+                                <button type="submit"
+                                        class="btn btn-dark"
+                                        th:disabled="${#lists.isEmpty(cajas) or #lists.isEmpty(variaciones)}">
+                                    <i class="bi bi-check-circle me-1"></i>
+                                    Registrar venta
+                                </button>
+                            </div>
+
+                        </form>
                     </div>
                 </div>
 
-                <div class="mb-3">
-                    <label class="form-label">Producto, talla y color</label>
-
-                    <select name="idVariacion" class="form-select" required>
-                        <option value="">Selecciona una variación</option>
-
-                        <option th:each="variacion : ${variaciones}"
-                                th:value="${variacion.idVariacion}"
-                                th:text="${variacion.producto.modeloProd
-                                    + ' | Talla: ' + variacion.talla
-                                    + ' | Color: ' + variacion.colorPv
-                                    + ' | Stock: ' + variacion.stock
-                                    + ' | Precio: S/ '
-                                    + variacion.producto.precioProd}">
-                        </option>
-                    </select>
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Cantidad</label>
-                    <input type="number"
-                           name="cantidad"
-                           class="form-control"
-                           min="1"
-                           value="1"
-                           required>
-                </div>
-
-                <div class="mb-4">
-                    <label class="form-label">Método de pago</label>
-
-                    <select name="metodoPagoFis" class="form-select" required>
-                        <option value="">Selecciona un método</option>
-                        <option value="Efectivo">Efectivo</option>
-                        <option value="Tarjeta">Tarjeta</option>
-                        <option value="Yape_Plin">Yape / Plin</option>
-                        <option value="Transferencia">Transferencia</option>
-                    </select>
-                </div>
-
-                <div class="d-flex gap-2">
-                    <button type="submit"
-                            class="btn btn-dark"
-                            th:disabled="${#lists.isEmpty(cajas) or #lists.isEmpty(variaciones)}">
-                        Registrar venta
-                    </button>
-
-                    <a th:href="@{/ventas-fisicas}"
-                       class="btn btn-outline-secondary">
-                        Cancelar
-                    </a>
-                </div>
-
-            </form>
+            </main>
         </div>
     </div>
-</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
+
 </html>

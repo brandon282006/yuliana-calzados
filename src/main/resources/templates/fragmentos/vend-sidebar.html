@@ -1,0 +1,106 @@
+<div th:fragment="sidebar(activo)"
+     class="offcanvas-lg offcanvas-start admin-sidebar"
+     tabindex="-1"
+     id="vendSidebar"
+     aria-labelledby="vendSidebarLabel">
+
+    <!-- ENCABEZADO Y LOGO -->
+    <div class="offcanvas-header border-bottom border-light border-opacity-10">
+
+        <a th:href="@{/ventas}" class="admin-brand text-decoration-none">
+            <img th:src="@{/img/logo.jpeg}"
+                 alt="Yuliana Calzados"
+                 class="admin-logo">
+        </a>
+
+        <button type="button"
+                class="btn-close btn-close-white d-lg-none"
+                data-bs-dismiss="offcanvas"
+                data-bs-target="#vendSidebar"
+                aria-label="Cerrar">
+        </button>
+    </div>
+
+    <!-- MENÚ DEL VENDEDOR -->
+    <div class="offcanvas-body d-flex flex-column p-3">
+
+        <p class="text-uppercase small text-white-50 px-2 mb-2">
+            Menú de ventas
+        </p>
+
+        <ul class="nav nav-pills flex-column gap-1">
+
+            <!-- REGISTRAR VENTA -->
+            <li class="nav-item">
+                <a class="nav-link"
+                   th:classappend="${activo == 'ventas'} ? 'active'"
+                   th:href="@{/ventas-fisicas/nuevo}">
+                    <i class="bi bi-cash-coin"></i>
+                    Registrar venta
+                </a>
+            </li>
+
+            <!-- VENTAS REALIZADAS -->
+            <li class="nav-item">
+                <a class="nav-link"
+                   th:classappend="${activo == 'historial'} ? 'active'"
+                   th:href="@{/ventas-fisicas}">
+                    <i class="bi bi-receipt"></i>
+                    Ventas realizadas
+                </a>
+            </li>
+
+        </ul>
+
+        <!-- INFORMACIÓN DE SESIÓN -->
+        <div class="mt-auto pt-4 border-top border-light border-opacity-10">
+
+            <p class="text-uppercase small text-white-50 px-2 mb-2">
+                Sesión
+            </p>
+
+            <div class="d-flex align-items-center gap-2 px-2 mb-3"
+                 th:if="${usuarioSesion != null}">
+
+                <span class="avatar-circle avatar-sm"
+                      th:text="${usuarioSesion.inicial}">V</span>
+
+                <div class="min-w-0">
+
+                    <p class="mb-0 text-white small fw-semibold text-truncate"
+                       th:text="${usuarioSesion.nombre}">
+                        Vendedor
+                    </p>
+
+                    <p class="mb-0 text-white-50 admin-role-text"
+                       th:text="${usuarioSesion.rol}">
+                        Vendedor
+                    </p>
+
+                </div>
+            </div>
+
+            <!-- OPCIONES DE SESIÓN -->
+            <ul class="nav nav-pills flex-column gap-1">
+
+                <li class="nav-item">
+                    <a class="nav-link"
+                       th:href="@{/index}">
+                        <i class="bi bi-shop"></i>
+                        Ver tienda
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link admin-logout"
+                       th:href="@{/logout}">
+                        <i class="bi bi-box-arrow-right"></i>
+                        Cerrar sesión
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+    </div>
+</div>

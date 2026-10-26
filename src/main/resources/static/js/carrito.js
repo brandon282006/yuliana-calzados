@@ -108,6 +108,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     precio: Number(detalle.precio),
                     imagen: imagenesProductos[String(detalle.idProducto)] || "",
                     talla: detalle.talla,
+                    color: detalle.color,
                     cantidad: Number(detalle.cantidad),
                     subtotal: Number(detalle.subtotal)
                 };
@@ -655,6 +656,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         precio: Number(detalle.precio),
                         imagen: imagenesProductos[String(detalle.idProducto)] || "",
                         talla: detalle.talla,
+                        color: detalle.color,
                         cantidad: Number(detalle.cantidad)
                     };
                 });
@@ -713,6 +715,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 const pedido = {
                     numero: "YUL-" + resultado.idVentaWeb,
                     idVentaWeb: resultado.idVentaWeb,
+                    fecha: new Date().toISOString(),
                     nombre: nombre,
                     telefono: telefono,
                     correo: correo,
@@ -800,6 +803,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
                                         <small class="text-muted d-block">
                                             Talla: ${talla}
+                                        </small>
+
+                                        <small class="text-muted d-block">
+                                            Color: ${escaparHTML(producto.color || "No especificado")}
                                         </small>
 
                                         <small class="text-muted">

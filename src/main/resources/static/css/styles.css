@@ -308,3 +308,284 @@ i:hover{
   color: #462e2d;                
   font-size: 1.2rem;
 }
+
+
+/* =========================================================
+   LOGIN - APARIENCIA DEL PROYECTO DE REFERENCIA
+   ========================================================= */
+
+.login-body {
+    background-color: var(--marfil);
+    min-height: 100vh;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.login-body i {
+    font-size: 1rem;
+    padding: 0;
+}
+
+.login-body img {
+    width: auto;
+    height: auto;
+}
+
+.login-wrapper {
+    display: grid;
+    grid-template-columns: 1fr;
+    min-height: 100vh;
+    width: 100%;
+}
+
+@media (min-width: 992px) {
+    .login-wrapper {
+        grid-template-columns: 1.05fr 0.95fr;
+    }
+}
+
+/* Panel visual */
+.login-visual {
+    position: relative;
+    align-items: center;
+    padding: 3rem;
+    background-image: url("../img/inicio_sesion.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: hidden;
+}
+
+.login-visual-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        180deg,
+        rgba(29, 23, 20, 0.42) 0%,
+        rgba(29, 23, 20, 0.18) 42%,
+        rgba(29, 23, 20, 0.68) 100%
+    );
+}
+
+.login-visual-brand {
+    position: absolute;
+    top: 2rem;
+    left: 2rem;
+    z-index: 2;
+}
+
+.login-body .login-logo-badge {
+    width: 214px;
+    max-width: 55%;
+    height: auto;
+    object-fit: contain;
+    background-color: #FFFFFF;
+    padding: 0.6rem 1rem;
+    border-radius: 14px;
+    box-shadow: 0 0.8rem 2rem rgba(29, 23, 20, 0.28);
+}
+
+.login-body .login-logo {
+    width: 174px;
+    max-width: 70%;
+    height: auto;
+    object-fit: contain;
+    margin-bottom: 0.85rem;
+}
+
+/* Frase decorativa */
+.login-slogan {
+    position: absolute;
+    left: 2rem;
+    right: 2rem;
+    bottom: 2.5rem;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    color: #FFFFFF;
+    text-align: center;
+}
+
+.login-slogan p {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 600;
+    font-size: clamp(1.9rem, 3vw, 2.9rem);
+    line-height: 1.1;
+    letter-spacing: 0.03em;
+    margin: 0;
+    text-shadow: 0 2px 18px rgba(0, 0, 0, 0.55);
+}
+
+.login-slogan-line {
+    width: 48px;
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.75);
+    flex: 0 0 auto;
+}
+
+/* Panel del formulario */
+.login-panel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1.25rem;
+}
+
+.login-card {
+    width: 100%;
+    max-width: 440px;
+    background-color: #FFFFFF;
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 1.2rem 3rem rgba(29, 23, 20, 0.1);
+}
+
+@media (min-width: 576px) {
+    .login-card {
+        padding: 2.5rem;
+    }
+}
+
+/* Etiqueta Acceso privado */
+.login-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    background-color: #F3E6CC;
+    color: #8B6B4F;
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 0.35rem 0.75rem;
+    border-radius: 999px;
+    margin-bottom: 0.9rem;
+}
+
+/* Título */
+.login-card h2 {
+    color: #1A1A1A;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* Campos */
+.login-body .form-label {
+    color: #1A1A1A;
+    font-size: 0.9rem;
+}
+
+.login-body .input-group-text {
+    background-color: #F8F5F0;
+    color: #8B6B4F;
+    border-color: #DEE2E6;
+}
+
+.login-body .form-control {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.9rem;
+    border-color: #DEE2E6;
+}
+
+.login-body .form-control:focus {
+    border-color: #8B6B4F;
+    box-shadow: 0 0 0 0.2rem rgba(139, 107, 79, 0.16);
+}
+
+/* Botón Entrar */
+.login-body .login-submit {
+    background-color: #1D1714;
+    border-color: #1D1714;
+    color: #FFFFFF;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    transition: background-color 0.2s ease;
+}
+
+.login-body .login-submit:hover {
+    background-color: #8B6B4F;
+    border-color: #8B6B4F;
+    color: #FFFFFF;
+}
+
+/* Botón mostrar contraseña */
+.login-body .btn-toggle-password {
+    background-color: #FFFFFF;
+    color: #6C757D;
+    border-color: #DEE2E6;
+}
+
+.login-body .btn-toggle-password:hover {
+    background-color: #F8F9FA;
+    color: #1A1A1A;
+}
+
+/* Enlace volver a la tienda */
+.login-body a {
+    color: #6C757D;
+    text-decoration: none;
+}
+
+.login-body a:hover {
+    color: #1A1A1A;
+}
+
+/* Mensajes de validación */
+.login-body .alert {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.875rem;
+}
+
+.login-body .alert i {
+    flex-shrink: 0;
+}
+
+/* Adaptación a celulares */
+@media (max-width: 575.98px) {
+    .login-card {
+        padding: 1.5rem;
+    }
+
+    .login-panel {
+        padding: 1.25rem 1rem;
+    }
+}
+
+@media (min-width: 992px) {
+    .login-visual {
+        min-height: 100vh;
+    }
+}
+
+/* Imagen grande del panel visual del login */
+.login-body .login-visual .login-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Contenedor de la imagen grande */
+.login-body .login-visual-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+/* Logo pequeño de la parte superior */
+.login-body .login-logo-badge {
+    width: 214px;
+    max-width: 55%;
+    height: auto;
+    object-fit: contain;
+}
+
+#btnExportarPDF:hover {
+    background-color: #8B6B4F;
+    border-color: #8B6B4F;
+    color: #fff;
+}

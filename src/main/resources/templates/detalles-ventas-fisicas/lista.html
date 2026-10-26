@@ -1,105 +1,170 @@
-
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Detalles de venta física | Yuliana Calzados</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap"
           rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
-          rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" th:href="@{/css/admin.css}">
 </head>
 
-<body class="bg-light">
+<body class="admin-body">
 
-<div class="container py-5">
+    <div class="admin-shell">
 
-    <div class="mb-4">
-        <h1 class="h3">Detalles de venta física</h1>
-        <p class="text-secondary">
-            Productos incluidos en la venta seleccionada.
-        </p>
-    </div>
+        <div th:replace="~{fragmentos/vend-sidebar :: sidebar('historial')}"></div>
 
-    <div class="card border-0 shadow-sm mb-4">
-        <div class="card-body">
-            <div class="row g-3">
-                <div class="col-md-4">
-                    <span class="text-secondary">Número de venta</span>
-                    <p class="fw-semibold mb-0"
-                       th:text="${ventaFisica.idVentaFisica}"></p>
+        <div class="admin-main">
+
+            <div th:replace="~{fragmentos/vend-topbar :: topbar('Detalles de venta física', 'Productos incluidos en la venta seleccionada')}"></div>
+
+            <main class="admin-content">
+
+                <div class="d-flex align-items-center gap-2 mb-3">
+                    <a th:href="@{/ventas-fisicas/ver/{id}(id=${ventaFisica.idVentaFisica})}"
+                       class="link-secondary text-decoration-none">
+                        <i class="bi bi-arrow-left me-1"></i>
+                        Volver al detalle de venta
+                    </a>
                 </div>
 
-                <div class="col-md-4">
-                    <span class="text-secondary">Fecha</span>
-                    <p class="fw-semibold mb-0"
-                       th:text="${ventaFisica.fechaVentFis != null
-                       ? #temporals.format(ventaFisica.fechaVentFis, 'dd/MM/yyyy HH:mm')
-                       : 'Sin fecha'}"></p>
+                <div class="d-flex flex-wrap justify-content-between align-items-end gap-3 mb-4">
+                    <div>
+                        <p class="admin-eyebrow text-uppercase small mb-2">HISTORIAL</p>
+                        <h1 class="h3 fw-bold mb-1">Productos de la venta</h1>
+                        <p class="text-secondary mb-0">
+                            Consulta los artículos incluidos en esta venta física.
+                        </p>
+                    </div>
+                    <span class="badge rounded-pill text-bg-light border fs-6 px-3 py-2">
+                        <i class="bi bi-receipt me-1"></i>
+                        Venta N.º <span th:text="${ventaFisica.idVentaFisica}">1</span>
+                    </span>
                 </div>
 
-                <div class="col-md-4">
-                    <span class="text-secondary">Total de la venta</span>
-                    <p class="fw-bold mb-0"
-                       th:text="${'S/ ' + #numbers.formatDecimal(ventaFisica.totalVentFis, 1, 2)}"></p>
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-body p-4">
+                        <div class="row g-4 align-items-center">
+                            <div class="col-12 col-md-4">
+                                <p class="stat-label mb-1">Fecha</p>
+                                <p class="fw-semibold mb-0"
+                                   th:text="${ventaFisica.fechaVentFis != null
+                                       ? #temporals.format(ventaFisica.fechaVentFis, 'dd/MM/yyyy HH:mm')
+                                       : 'Sin fecha'}">
+                                    01/01/2026 10:00
+                                </p>
+                            </div>
+                            <div class="col-12 col-md-4">
+                                <p class="stat-label mb-1">Artículos registrados</p>
+                                <p class="fw-semibold mb-0"
+                                   th:text="${#lists.size(detalles) + ' producto(s)'}">
+                                    0 productos
+                                </p>
+                            </div>
+                            <div class="col-12 col-md-4">
+                                <p class="stat-label mb-1">Total de la venta</p>
+                                <p class="h5 fw-bold mb-0"
+                                   th:text="${'S/ ' + #numbers.formatDecimal(ventaFisica.totalVentFis, 1, 2)}">
+                                    S/ 0.00
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
+
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header bg-white border-0 px-4 pt-4 pb-0">
+                        <h2 class="h5 fw-bold mb-1">Detalle de productos</h2>
+                        <p class="text-secondary small mb-0">
+                            Productos, tallas, colores y subtotales de la venta.
+                        </p>
+                    </div>
+
+                    <div class="card-body p-0 pt-3">
+
+                        <div class="table-responsive" th:if="${!#lists.isEmpty(detalles)}">
+                            <table class="table table-hover align-middle mb-0">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>Producto</th>
+                                        <th class="text-center">Talla</th>
+                                        <th>Color</th>
+                                        <th class="text-center">Cantidad</th>
+                                        <th class="text-end">Precio unitario</th>
+                                        <th class="text-end">Subtotal</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr th:each="detalle : ${detalles}">
+                                        <td class="fw-semibold"
+                                            th:text="${detalle.variacion.producto.modeloProd}">
+                                            Modelo del producto
+                                        </td>
+                                        <td class="text-center"
+                                            th:text="${detalle.variacion.talla}">
+                                            0
+                                        </td>
+                                        <td th:text="${detalle.variacion.colorPv}">
+                                            Color
+                                        </td>
+                                        <td class="text-center"
+                                            th:text="${detalle.cantidad}">
+                                            1
+                                        </td>
+                                        <td class="text-end"
+                                            th:text="${'S/ ' + #numbers.formatDecimal(detalle.precioUnitario, 1, 2)}">
+                                            S/ 0.00
+                                        </td>
+                                        <td class="text-end fw-bold"
+                                            th:text="${'S/ ' + #numbers.formatDecimal(detalle.subtotal, 1, 2)}">
+                                            S/ 0.00
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="text-center py-5" th:if="${#lists.isEmpty(detalles)}">
+                            <i class="bi bi-inbox fs-1 text-secondary"></i>
+                            <h5 class="mt-3">No hay productos en esta venta</h5>
+                            <p class="text-secondary mb-0">
+                                Esta venta todavía no tiene productos registrados.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="card-footer bg-white border-0 px-4 py-3"
+                         th:if="${!#lists.isEmpty(detalles)}">
+                        <div class="d-flex justify-content-end align-items-center gap-3">
+                            <span class="text-secondary">Total de la venta</span>
+                            <span class="h5 fw-bold mb-0"
+                                  th:text="${'S/ ' + #numbers.formatDecimal(ventaFisica.totalVentFis, 1, 2)}">
+                                S/ 0.00
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-end mt-4">
+                    <a th:href="@{/ventas-fisicas}" class="btn btn-outline-secondary">
+                        <i class="bi bi-arrow-left me-1"></i>
+                        Volver a ventas físicas
+                    </a>
+                </div>
+
+            </main>
         </div>
     </div>
 
-    <div class="card border-0 shadow-sm">
-        <div class="card-body">
-
-            <div class="table-responsive">
-                <table class="table table-hover align-middle">
-                    <thead class="table-dark">
-                    <tr>
-                        <th>Producto</th>
-                        <th>Talla</th>
-                        <th>Color</th>
-                        <th>Cantidad</th>
-                        <th>Precio unitario</th>
-                        <th>Subtotal</th>
-                    </tr>
-                    </thead>
-
-                    <tbody>
-                    <tr th:each="detalle : ${detalles}">
-                        <td th:text="${detalle.variacion.producto.modeloProd}"></td>
-
-                        <td th:text="${detalle.variacion.talla}"></td>
-
-                        <td th:text="${detalle.variacion.colorPv}"></td>
-
-                        <td th:text="${detalle.cantidad}"></td>
-
-                        <td th:text="${'S/ ' + #numbers.formatDecimal(detalle.precioUnitario, 1, 2)}"></td>
-
-                        <td th:text="${'S/ ' + #numbers.formatDecimal(detalle.subtotal, 1, 2)}"></td>
-                    </tr>
-
-                    <tr th:if="${#lists.isEmpty(detalles)}">
-                        <td colspan="6"
-                            class="text-center text-secondary py-4">
-                            Esta venta todavía no tiene productos registrados.
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <a th:href="@{/ventas-fisicas}"
-               class="btn btn-outline-secondary mt-2">
-                <i class="bi bi-arrow-left"></i>
-                Volver a ventas físicas
-            </a>
-
-        </div>
-    </div>
-
-</div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
+
 </html>

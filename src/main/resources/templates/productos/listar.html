@@ -1,126 +1,179 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Productos | Yuliana Calzados</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-          rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" th:href="@{/css/admin.css}">
 </head>
-<body class="bg-light">
 
-<div class="container py-5">
+<body class="admin-body">
 
-    <div class="d-flex flex-wrap justify-content-between
-                align-items-center gap-3 mb-4">
-        <div>
-            <h1 class="h3 mb-1">Productos</h1>
-            <p class="text-secondary mb-0">
-                Administra el catálogo de Yuliana Calzados.
-            </p>
-        </div>
+    <div class="admin-shell">
 
-        <div class="d-flex gap-2">
-            <a th:href="@{/categorias}"
-               class="btn btn-outline-secondary">
-                Categorías
-            </a>
+        <!-- Menú lateral -->
+        <div th:replace="~{fragmentos/admin-sidebar :: sidebar('productos')}"></div>
 
-            <a th:href="@{/productos/nuevo}"
-               class="btn btn-dark">
-                + Nuevo producto
-            </a>
-        </div>
-    </div>
+        <!-- Contenido principal -->
+        <div class="admin-main">
 
-    <div class="card border-0 shadow-sm">
-        <div class="card-body">
-
-            <div class="table-responsive">
-                <table class="table table-hover align-middle mb-0">
-                    <thead class="table-light">
-                    <tr>
-                        <th>ID</th>
-                        <th>Modelo</th>
-                        <th>Categoría</th>
-                        <th>Precio</th>
-                        <th>Estado</th>
-                        <th class="text-center">Acciones</th>
-                    </tr>
-                    </thead>
-
-                    <tbody>
-                    <tr th:each="producto : ${productos}">
-                        <td th:text="${producto.idProducto}"></td>
-
-                        <td>
-                            <div class="fw-semibold"
-                                 th:text="${producto.modeloProd}"></div>
-                            <small class="text-secondary"
-                                   th:text="${producto.descripcionProd != null
-                                   and !producto.descripcionProd.isEmpty()
-                                   ? producto.descripcionProd : 'Sin descripción'}">
-                            </small>
-                        </td>
-
-                        <td th:text="${producto.categoria.nombreCat}"></td>
-
-                        <td>
-                            S/
-                            <span th:text="${#numbers.formatDecimal(
-                                producto.precioProd, 1, 2)}"></span>
-                        </td>
-
-                        <td>
-                            <span class="badge"
-                                  th:classappend="${producto.estadoProd.name() == 'Activo'}
-                                  ? ' text-bg-success' : ' text-bg-secondary'"
-                                  th:text="${producto.estadoProd}">
-                            </span>
-                        </td>
-
-                        <td>
-                            <div class="d-flex justify-content-center gap-2">
-                                <a th:href="@{/productos/editar/{id}
-                                    (id=${producto.idProducto})}"
-                                   class="btn btn-sm btn-outline-dark">
-                                    Editar
-                                </a>
-
-                                <form th:action="@{/productos/eliminar/{id}
-                                    (id=${producto.idProducto})}"
-                                      method="post"
-                                      onsubmit="return confirm('¿Eliminar este producto?');">
-                                    <button type="submit"
-                                            class="btn btn-sm btn-outline-danger">
-                                        Eliminar
-                                    </button>
-                                </form>
-                            </div>
-                        </td>
-                    </tr>
-
-                    <tr th:if="${#lists.isEmpty(productos)}">
-                        <td colspan="6"
-                            class="text-center text-secondary py-4">
-                            Todavía no hay productos registrados.
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+            <!-- Barra superior -->
+            <div th:replace="~{fragmentos/admin-topbar :: topbar('Productos', 'Administra el catálogo de calzado')}">
             </div>
 
+            <main class="admin-content">
+
+                <!-- Encabezado -->
+                <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+                    <div>
+                        <h1 class="h3 fw-bold mb-1">Productos</h1>
+                        <p class="text-secondary mb-0">
+                            Administra los productos de Yuliana Calzados.
+                        </p>
+                    </div>
+
+
+                    <a th:href="@{/productos/nuevo}" class="btn btn-dark">
+                        <i class="bi bi-plus-lg me-1"></i>
+                        Nuevo producto
+                    </a>
+                </div>
+
+                <!-- Buscador -->
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-body">
+                        <label for="buscarProducto" class="form-label fw-semibold">
+                            Buscar producto
+                        </label>
+                        <input type="search" id="buscarProducto" class="form-control"
+                            placeholder="Buscar por modelo, categoría o descripción...">
+                    </div>
+                </div>
+
+                <!-- Tabla de productos -->
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body p-0">
+
+                        <div class="table-responsive" th:if="${!#lists.isEmpty(productos)}">
+
+                            <table class="table table-hover align-middle mb-0" id="tablaProductos">
+
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Modelo</th>
+                                        <th>Categoría</th>
+                                        <th>Descripción</th>
+                                        <th class="text-end">Precio</th>
+                                        <th class="text-center">Estado</th>
+                                        <th class="text-center">Acciones</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr th:each="p : ${productos}">
+                                        <td th:text="${p.idProducto}">1</td>
+
+                                        <td class="fw-semibold" th:text="${p.modeloProd}">
+                                            Modelo del calzado
+                                        </td>
+
+                                        <td th:text="${p.categoria != null
+                                              ? p.categoria.nombreCat
+                                              : 'Sin categoría'}">
+                                            Categoría
+                                        </td>
+
+                                        <td th:text="${p.descripcionProd != null
+                                              and !#strings.isEmpty(p.descripcionProd)
+                                              ? p.descripcionProd
+                                              : 'Sin descripción'}">
+                                            Descripción
+                                        </td>
+
+                                        <td class="text-end fw-bold"
+                                            th:text="${'S/ ' + #numbers.formatDecimal(p.precioProd, 1, 2)}">
+                                            S/ 0.00
+                                        </td>
+
+                                        <td class="text-center">
+                                            <span class="badge rounded-pill" th:classappend="${p.estadoProd.name() == 'Activo'}
+                                              ? 'text-bg-success' : 'text-bg-secondary'" th:text="${p.estadoProd}">
+                                                Activo
+                                            </span>
+                                        </td>
+
+                                        <td class="text-center">
+                                            <div class="d-flex justify-content-center gap-2">
+
+                                                <a th:href="@{/productos/editar/{id}(id=${p.idProducto})}"
+                                                    class="btn btn-sm btn-outline-dark" title="Editar">
+                                                    <i class="bi bi-pencil"></i>
+                                                </a>
+
+                                                <form th:action="@{/productos/eliminar/{id}(id=${p.idProducto})}"
+                                                    method="post"
+                                                    onsubmit="return confirm('¿Deseas eliminar este producto?');">
+
+                                                    <button type="submit" class="btn btn-sm btn-outline-danger"
+                                                        title="Eliminar">
+                                                        <i class="bi bi-trash"></i>
+                                                    </button>
+                                                </form>
+
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Mensaje cuando no hay productos -->
+                        <div class="text-center py-5" th:if="${#lists.isEmpty(productos)}">
+
+                            <i class="bi bi-box-seam fs-1 text-secondary"></i>
+                            <h5 class="mt-3">No hay productos registrados</h5>
+                            <p class="text-secondary">
+                                Registra tu primer producto para mostrarlo aquí.
+                            </p>
+
+                            <a th:href="@{/productos/nuevo}" class="btn btn-dark">
+                                <i class="bi bi-plus-lg me-1"></i>
+                                Nuevo producto
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+
+            </main>
         </div>
     </div>
 
-    <div class="mt-3">
-        <a th:href="@{/index}" class="link-secondary">
-            Volver al inicio
-        </a>
-    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
-</div>
+    <script>
+        const buscador = document.getElementById('buscarProducto');
+
+        buscador.addEventListener('input', function () {
+            const texto = this.value.toLowerCase().trim();
+            const filas = document.querySelectorAll('#tablaProductos tbody tr');
+
+            filas.forEach(function (fila) {
+                fila.style.display = fila.textContent.toLowerCase().includes(texto)
+                    ? ''
+                    : 'none';
+            });
+        });
+    </script>
 
 </body>
+
 </html>

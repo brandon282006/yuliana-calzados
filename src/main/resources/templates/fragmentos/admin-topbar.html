@@ -1,0 +1,64 @@
+<header th:fragment="topbar(titulo, subtitulo)"
+        class="admin-topbar px-3 px-lg-4 py-3 d-flex align-items-center gap-3">
+
+    <button class="btn btn-outline-dark d-lg-none flex-shrink-0"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#adminSidebar"
+            aria-controls="adminSidebar"
+            aria-label="Abrir menú">
+        <i class="bi bi-list"></i>
+    </button>
+
+    <div class="flex-grow-1 min-w-0">
+        <h1 class="h5 fw-bold mb-0 text-truncate"
+            th:text="${titulo}">Panel</h1>
+        <p class="small text-secondary mb-0 text-truncate"
+           th:text="${subtitulo}">Administración</p>
+    </div>
+
+    <div class="dropdown flex-shrink-0"
+         th:if="${usuarioSesion != null}">
+        <button class="btn btn-light border d-flex align-items-center gap-2"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false">
+
+            <span class="avatar-circle avatar-sm"
+                  th:text="${usuarioSesion.inicial}">A</span>
+
+            <span class="d-none d-sm-block text-start lh-sm">
+                <span class="d-block small fw-semibold"
+                      th:text="${usuarioSesion.nombre}">
+                    Administrador
+                </span>
+                <span class="d-block text-secondary admin-role-text"
+                      th:text="${usuarioSesion.rol}">
+                    Administrador
+                </span>
+            </span>
+
+            <i class="bi bi-chevron-down small"></i>
+        </button>
+
+        <ul class="dropdown-menu dropdown-menu-end shadow border-0">
+            <li>
+                <span class="dropdown-item-text small text-secondary"
+                      th:text="${usuarioSesion.correo}">
+                    correo@ejemplo.com
+                </span>
+            </li>
+            <li><hr class="dropdown-divider"></li>
+            <li>
+                <a class="dropdown-item" th:href="@{/index}">
+                    <i class="bi bi-shop me-2"></i>Ver tienda
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item text-danger" th:href="@{/logout}">
+                    <i class="bi bi-box-arrow-right me-2"></i>Cerrar sesión
+                </a>
+            </li>
+        </ul>
+    </div>
+</header>

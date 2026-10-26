@@ -1,0 +1,88 @@
+<div th:fragment="sidebar(activo)" class="offcanvas-lg offcanvas-start admin-sidebar" tabindex="-1" id="adminSidebar">
+
+    <div class="offcanvas-header border-bottom border-light border-opacity-10">
+        <a th:href="@{/admin}" class="admin-brand text-decoration-none">
+            <img th:src="@{/img/logo.jpeg}" alt="Yuliana Calzados" class="admin-logo">
+        </a>
+
+        <button type="button" class="btn-close btn-close-white d-lg-none" data-bs-dismiss="offcanvas"
+            aria-label="Cerrar"></button>
+    </div>
+
+    <div class="offcanvas-body d-flex flex-column p-3">
+        <p class="text-uppercase small text-white-50 px-2 mb-2">
+            Menú principal
+        </p>
+
+        <ul class="nav nav-pills flex-column gap-1">
+            <li class="nav-item">
+                <a class="nav-link" th:classappend="${activo == 'dashboard'} ? 'active'" th:href="@{/admin}">
+                    <i class="bi bi-speedometer2"></i>
+                    Dashboard
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" th:classappend="${activo == 'productos'} ? 'active'" th:href="@{/productos}">
+                    <i class="bi bi-box-seam"></i>
+                    Productos
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" th:classappend="${activo == 'categorias'} ? 'active'" th:href="@{/categorias}">
+                    <i class="bi bi-tags"></i>
+                    Categorías
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" th:classappend="${activo == 'variaciones'} ? 'active'" th:href="@{/variaciones}">
+                    <i class="bi bi-grid"></i>
+                    Variaciones
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" th:classappend="${activo == 'usuarios'} ? 'active'" th:href="@{/usuarios}">
+                    <i class="bi bi-people"></i>
+                    Usuarios
+                </a>
+            </li>
+        </ul>
+
+        <div class="mt-auto pt-4 border-top border-light border-opacity-10">
+            <p class="text-uppercase small text-white-50 px-2 mb-2">
+                Sesión
+            </p>
+
+            <div class="d-flex align-items-center gap-2 px-2 mb-3" th:if="${usuarioSesion != null}">
+                <span class="avatar-circle avatar-sm" th:text="${usuarioSesion.inicial}">A</span>
+
+                <div class="min-w-0">
+                    <p class="mb-0 text-white small fw-semibold text-truncate" th:text="${usuarioSesion.nombre}">
+                        Administrador
+                    </p>
+                    <p class="mb-0 text-white-50 admin-role-text" th:text="${usuarioSesion.rol}">
+                        Administrador
+                    </p>
+                </div>
+            </div>
+
+            <ul class="nav nav-pills flex-column gap-1">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/index}">
+                        <i class="bi bi-shop"></i>
+                        Ver tienda
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link admin-logout" th:href="@{/logout}">
+                        <i class="bi bi-box-arrow-right"></i>
+                        Cerrar sesión
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div> 

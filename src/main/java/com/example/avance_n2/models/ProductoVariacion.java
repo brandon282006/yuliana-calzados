@@ -1,4 +1,3 @@
-
 package com.example.avance_n2.models;
 
 import jakarta.persistence.*;
